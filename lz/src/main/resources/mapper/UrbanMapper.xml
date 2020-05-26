@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zygh.lz.mapper.UrbanMapper">
+    <!--<cache type="com.zygh.lz.cache.MybatisRedisCache"/>-->
+    <resultMap id="BaseResultMap" type="com.zygh.lz.admin.Urban">
+        <id column="sys_urban_id" property="sysUrbanId" jdbcType="INTEGER"/>
+        <result column="sys_section_id" property="sysSectionId" jdbcType="INTEGER"/>
+        <result column="urban_name" property="urbanName" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    sys_urban_id, sys_section_id, urban_name
+  </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from urban
+        where sys_urban_id = #{sysUrbanId,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from urban
+    where sys_urban_id = #{sysUrbanId,jdbcType=INTEGER}
+  </delete>
+    <insert id="insert" parameterType="com.zygh.lz.admin.Urban">
+    insert into urban (sys_urban_id, sys_section_id, urban_name
+      )
+    values (#{sysUrbanId,jdbcType=INTEGER}, #{sysSectionId,jdbcType=INTEGER}, #{urbanName,jdbcType=VARCHAR}
+      )
+  </insert>
+    <insert id="insertSelective" parameterType="com.zygh.lz.admin.Urban">
+        insert into urban
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="sysUrbanId != null">
+                sys_urban_id,
+            </if>
+            <if test="sysSectionId != null">
+                sys_section_id,
+            </if>
+            <if test="urbanName != null">
+                urban_name,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="sysUrbanId != null">
+                #{sysUrbanId,jdbcType=INTEGER},
+            </if>
+            <if test="sysSectionId != null">
+                #{sysSectionId,jdbcType=INTEGER},
+            </if>
+            <if test="urbanName != null">
+                #{urbanName,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.zygh.lz.admin.Urban">
+        update urban
+        <set>
+            <if test="sysSectionId != null">
+                sys_section_id = #{sysSectionId,jdbcType=INTEGER},
+            </if>
+            <if test="urbanName != null">
+                urban_name = #{urbanName,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where sys_urban_id = #{sysUrbanId,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.zygh.lz.admin.Urban">
+    update urban
+    set sys_section_id = #{sysSectionId,jdbcType=INTEGER},
+      urban_name = #{urbanName,jdbcType=VARCHAR}
+    where sys_urban_id = #{sysUrbanId,jdbcType=INTEGER}
+  </update>
+    <select id="selectAllUrban" resultType="map">
+    SELECT *
+    FROM urban,section
+    WHERE urban.sys_section_id = section.sys_section_id
+  </select>
+    <select id="seleteDimUrban" resultType="map">
+        SELECT *
+        FROM urban u,section s
+        <where>
+            u.sys_section_id = s.sys_section_id
+            <if test="urbanName != null and urbanName != ''">
+                and concat(section_name,urban_name) like concat(concat('%',#{urbanName}),'%')
+            </if>
+            <if test="sectionName != null and sectionName != ''">
+                and s.section_name like concat(concat('%',#{sectionName}),'%')
+            </if>
+        </where>
+    </select>
+    <!--按照大队统计各管辖区域发现问题数目。统计-->
+    <select id="selectUrbanByCount" resultType="map">
+        SELECT u.urban_name,COUNT(distinct p.problem_id) as num FROM urban u LEFT JOIN section s ON
+        u.sys_section_id=s.section_pid LEFT JOIN staff f ON s.sys_section_id=f.sys_section_id
+        LEFT JOIN problem p ON f.sys_staff_id=p.sys_staff_id
+        <where>
+            <if test="sectionId != null and sectionId != ''">
+                f.sys_section_id=#{sectionId}
+            </if>
+            and problem_check='通过'
+        </where>
+        GROUP BY sys_urban_id
+    </select>
+</mapper>

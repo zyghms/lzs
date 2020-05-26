@@ -1,0 +1,668 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zygh.lz.mapper.StaffMapper">
+    <resultMap id="BaseResultMap" type="com.zygh.lz.admin.Staff">
+        <id column="sys_staff_id" property="sysStaffId" jdbcType="INTEGER"/>
+        <result column="staff_name" property="staffName" jdbcType="VARCHAR"/>
+        <result column="staff_post" property="staffPost" jdbcType="VARCHAR"/>
+        <result column="cellphonenumber" property="cellphonenumber" jdbcType="VARCHAR"/>
+        <result column="staff_tel" property="staffTel" jdbcType="VARCHAR"/>
+        <result column="sys_gps_id" property="sysGpsId" jdbcType="INTEGER"/>
+        <result column="sys_section_id" property="sysSectionId" jdbcType="INTEGER"/>
+        <result column="sys_role_id" property="sysRoleId" jdbcType="INTEGER"/>
+        <result column="staff_sex" property="staffSex" jdbcType="VARCHAR"/>
+        <result column="staff_photo" property="staffPhoto" jdbcType="VARCHAR"/>
+        <result column="staff_password" property="staffPassword" jdbcType="VARCHAR"/>
+        <result column="staff_hierarchy" property="staffHierarchy" jdbcType="VARCHAR"/>
+        <result column="stafff_pid" property="stafffPid" jdbcType="INTEGER"/>
+        <result column="staff_num" property="staffNum" jdbcType="VARCHAR"/>
+        <result column="staff_idcard" property="staffIdcard" jdbcType="VARCHAR"/>
+        <result column="staff_online" property="staffOnline" jdbcType="VARCHAR"/>
+        <result column="section_name" property="sectionName" jdbcType="VARCHAR"/>
+        <result column="stafftype" property="stafftype" jdbcType="VARCHAR"/>
+        <result column="strength" property="strength" jdbcType="VARCHAR"/>
+        <result column="change_shifts" property="changeShifts" jdbcType="VARCHAR"/>
+        <result column="section_pid" property="sectionpid" jdbcType="VARCHAR"/>
+
+        <result column="patrol_record_begintime" property="patrolRecordBegintime" jdbcType="TIMESTAMP"/>
+        <result column="battalion" property="battalion" jdbcType="VARCHAR"/>
+        <association property="gps" javaType="com.zygh.lz.admin.Gps">
+            <id property="sysGpsId" column="sys_gps_id"/>
+            <result property="gpsX" column="gps_x"/>
+            <result property="gpsY" column="gps_y"/>
+            <result property="gpsTime" column="gps_time"/>
+        </association>
+        <!-- <association property="patrolrecord" javaType="com.zygh.lz.admin.Patrolrecord">
+             <id property="sysPatrolRecordId" column="sys_patrol_record_id"/>
+             <result property="patrolRecordBegintime" column="patrol_record_begintime"/>
+             <result property="patrolRecordEndtime" column="patrol_record_endtime"/>
+             <result property="patrolRecordGps" column="patrol_record_gps"/>
+         </association>-->
+    </resultMap>
+
+
+    <sql id="Base_Column_List">
+    sys_staff_id, staff_name, staff_post, staff_tel, sys_gps_id, sys_section_id, sys_role_id,
+    staff_sex, staff_photo, staff_password, staff_hierarchy, stafff_pid, staff_num, staff_idcard,
+    staff_online, stafftype, strength, change_shifts,cellphonenumber
+  </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from staff
+        where sys_staff_id = #{sysStaffId,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from staff
+    where sys_staff_id = #{sysStaffId,jdbcType=INTEGER}
+  </delete>
+    <insert id="insert" parameterType="com.zygh.lz.admin.Staff">
+    insert into staff (sys_staff_id, staff_name, staff_post,
+      staff_tel, sys_gps_id, sys_section_id,
+      sys_role_id, staff_sex, staff_photo,
+      staff_password, staff_hierarchy, stafff_pid,
+      staff_num, staff_idcard, staff_online,
+      stafftype, strength, change_shifts,cellphonenumber
+      )
+    values (#{sysStaffId,jdbcType=INTEGER}, #{staffName,jdbcType=VARCHAR}, #{staffPost,jdbcType=VARCHAR},
+      #{staffTel,jdbcType=VARCHAR}, #{sysGpsId,jdbcType=INTEGER}, #{sysSectionId,jdbcType=INTEGER},
+      #{sysRoleId,jdbcType=INTEGER}, #{staffSex,jdbcType=VARCHAR}, #{staffPhoto,jdbcType=VARCHAR},
+      #{staffPassword,jdbcType=VARCHAR}, #{staffHierarchy,jdbcType=VARCHAR}, #{stafffPid,jdbcType=INTEGER},
+      #{staffNum,jdbcType=VARCHAR}, #{staffIdcard,jdbcType=VARCHAR}, #{staffOnline,jdbcType=VARCHAR},
+      #{stafftype,jdbcType=VARCHAR}, #{strength,jdbcType=VARCHAR}, #{changeShifts,jdbcType=VARCHAR},
+      #{cellphonenumber,jdbcType=VARCHAR})
+  </insert>
+    <insert id="insertSelective" parameterType="com.zygh.lz.admin.Staff">
+        insert into staff
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="sysStaffId != null">
+                sys_staff_id,
+            </if>
+            <if test="staffName != null">
+                staff_name,
+            </if>
+            <if test="staffPost != null">
+                staff_post,
+            </if>
+            <if test="staffTel != null">
+                staff_tel,
+            </if>
+            <if test="sysGpsId != null">
+                sys_gps_id,
+            </if>
+            <if test="sysSectionId != null">
+                sys_section_id,
+            </if>
+            <if test="sysRoleId != null">
+                sys_role_id,
+            </if>
+            <if test="staffSex != null">
+                staff_sex,
+            </if>
+            <if test="staffPhoto != null">
+                staff_photo,
+            </if>
+            <if test="staffPassword != null">
+                staff_password,
+            </if>
+            <if test="staffHierarchy != null">
+                staff_hierarchy,
+            </if>
+            <if test="stafffPid != null">
+                stafff_pid,
+            </if>
+            <if test="staffNum != null">
+                staff_num,
+            </if>
+            <if test="staffIdcard != null">
+                staff_idcard,
+            </if>
+            <if test="staffOnline != null">
+                staff_online,
+            </if>
+            <if test="stafftype != null">
+                stafftype,
+            </if>
+            <if test="strength != null">
+                strength,
+            </if>
+            <if test="changeShifts != null">
+                change_shifts,
+            </if>
+            <if test="cellphonenumber != null">
+                cellphonenumber,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="sysStaffId != null">
+                #{sysStaffId,jdbcType=INTEGER},
+            </if>
+            <if test="staffName != null">
+                #{staffName,jdbcType=VARCHAR},
+            </if>
+            <if test="staffPost != null">
+                #{staffPost,jdbcType=VARCHAR},
+            </if>
+            <if test="staffTel != null">
+                #{staffTel,jdbcType=VARCHAR},
+            </if>
+            <if test="sysGpsId != null">
+                #{sysGpsId,jdbcType=INTEGER},
+            </if>
+            <if test="sysSectionId != null">
+                #{sysSectionId,jdbcType=INTEGER},
+            </if>
+            <if test="sysRoleId != null">
+                #{sysRoleId,jdbcType=INTEGER},
+            </if>
+            <if test="staffSex != null">
+                #{staffSex,jdbcType=VARCHAR},
+            </if>
+            <if test="staffPhoto != null">
+                #{staffPhoto,jdbcType=VARCHAR},
+            </if>
+            <if test="staffPassword != null">
+                #{staffPassword,jdbcType=VARCHAR},
+            </if>
+            <if test="staffHierarchy != null">
+                #{staffHierarchy,jdbcType=VARCHAR},
+            </if>
+            <if test="stafffPid != null">
+                #{stafffPid,jdbcType=INTEGER},
+            </if>
+            <if test="staffNum != null">
+                #{staffNum,jdbcType=VARCHAR},
+            </if>
+            <if test="staffIdcard != null">
+                #{staffIdcard,jdbcType=VARCHAR},
+            </if>
+            <if test="staffOnline != null">
+                #{staffOnline,jdbcType=VARCHAR},
+            </if>
+            <if test="stafftype != null">
+                #{stafftype,jdbcType=VARCHAR},
+            </if>
+            <if test="strength != null">
+                #{strength,jdbcType=VARCHAR},
+            </if>
+            <if test="changeShifts != null">
+                #{changeShifts,jdbcType=VARCHAR},
+            </if>
+            <if test="cellphonenumber != null">
+                #{cellphonenumber,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.zygh.lz.admin.Staff">
+        update staff
+        <set>
+            <if test="staffName != null">
+                staff_name = #{staffName,jdbcType=VARCHAR},
+            </if>
+            <if test="staffPost != null">
+                staff_post = #{staffPost,jdbcType=VARCHAR},
+            </if>
+            <if test="staffTel != null">
+                staff_tel = #{staffTel,jdbcType=VARCHAR},
+            </if>
+            <if test="sysGpsId != null">
+                sys_gps_id = #{sysGpsId,jdbcType=INTEGER},
+            </if>
+            <if test="sysSectionId != null">
+                sys_section_id = #{sysSectionId,jdbcType=INTEGER},
+            </if>
+            <if test="sysRoleId != null">
+                sys_role_id = #{sysRoleId,jdbcType=INTEGER},
+            </if>
+            <if test="staffSex != null">
+                staff_sex = #{staffSex,jdbcType=VARCHAR},
+            </if>
+            <if test="staffPhoto != null">
+                staff_photo = #{staffPhoto,jdbcType=VARCHAR},
+            </if>
+            <if test="staffPassword != null">
+                staff_password = #{staffPassword,jdbcType=VARCHAR},
+            </if>
+            <if test="staffHierarchy != null">
+                staff_hierarchy = #{staffHierarchy,jdbcType=VARCHAR},
+            </if>
+            <if test="stafffPid != null">
+                stafff_pid = #{stafffPid,jdbcType=INTEGER},
+            </if>
+            <if test="staffNum != null">
+                staff_num = #{staffNum,jdbcType=VARCHAR},
+            </if>
+            <if test="staffIdcard != null">
+                staff_idcard = #{staffIdcard,jdbcType=VARCHAR},
+            </if>
+            <if test="staffOnline != null">
+                staff_online = #{staffOnline,jdbcType=VARCHAR},
+            </if>
+            <if test="stafftype != null">
+                stafftype = #{stafftype,jdbcType=VARCHAR},
+            </if>
+            <if test="strength != null">
+                strength = #{strength,jdbcType=VARCHAR},
+            </if>
+            <if test="changeShifts != null">
+                change_shifts = #{changeShifts,jdbcType=VARCHAR},
+            </if>
+            <if test="cellphonenumber != null">
+                cellphonenumber = #{cellphonenumber,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where sys_staff_id = #{sysStaffId,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.zygh.lz.admin.Staff">
+    update staff
+    set staff_name = #{staffName,jdbcType=VARCHAR},
+      staff_post = #{staffPost,jdbcType=VARCHAR},
+      staff_tel = #{staffTel,jdbcType=VARCHAR},
+      sys_gps_id = #{sysGpsId,jdbcType=INTEGER},
+      sys_section_id = #{sysSectionId,jdbcType=INTEGER},
+      sys_role_id = #{sysRoleId,jdbcType=INTEGER},
+      staff_sex = #{staffSex,jdbcType=VARCHAR},
+      staff_photo = #{staffPhoto,jdbcType=VARCHAR},
+      staff_password = #{staffPassword,jdbcType=VARCHAR},
+      staff_hierarchy = #{staffHierarchy,jdbcType=VARCHAR},
+      stafff_pid = #{stafffPid,jdbcType=INTEGER},
+      staff_num = #{staffNum,jdbcType=VARCHAR},
+      staff_idcard = #{staffIdcard,jdbcType=VARCHAR},
+      staff_online = #{staffOnline,jdbcType=VARCHAR},
+      stafftype = #{stafftype,jdbcType=VARCHAR},
+      strength = #{strength,jdbcType=VARCHAR},
+      change_shifts = #{changeShifts,jdbcType=VARCHAR}
+      cellphonenumber = #{cellphonenumber,jdbcType=VARCHAR}
+    where sys_staff_id = #{sysStaffId,jdbcType=INTEGER}
+  </update>
+    <!--登录-->
+    <select id="selectByLogin" resultMap="BaseResultMap">
+      select * from staff f,section c where f.staff_tel = #{user}
+      and f.staff_password= #{password}
+      AND f.sys_section_id=c.sys_section_id
+  </select>
+    <!--校验用户是否存在-->
+    <select id="selectByName" resultMap="BaseResultMap">
+        select *
+        from staff where staff_name = #{name}
+    </select>
+    <!--根据id查询该人的部门、路长等级和姓名-->
+    <select id="selectInfoByid" resultMap="BaseResultMap">
+        SELECT f.*,t.section_name FROM staff f,section t
+      WHERE t.sys_section_id=f.sys_section_id  AND f.sys_staff_id=#{staffId}
+    </select>
+    <select id="selectAllStaff" resultMap="BaseResultMap">
+    SELECT *
+    FROM staff,section,role
+    WHERE staff.sys_section_id=section.sys_section_id AND staff.sys_role_id = role.sys_role_id
+  </select>
+    <select id="selectBySectionId" resultType="int">
+        SELECT COUNT(*) FROM staff WHERE sys_section_id=#{id}
+    </select>
+
+    <select id="selectdefault" resultType="map">
+      SELECT f.* FROM problemtype pt,problemdetail pd,staff f
+      WHERE pt.id=pd.type AND pt.department=f.sys_staff_id and pd.probleDetail=#{probleDetail}
+    </select>
+    <select id="selectAllBySF" resultMap="BaseResultMap">
+        SELECT s.section_name,f.sys_staff_id,f.staff_name from	 section s,staff f
+        WHERE s.sys_section_id=f.sys_section_id AND s.sys_section_id=#{sysSectionId}
+
+    </select>
+    <select id="selectAllStaffPeople" resultMap="BaseResultMap">
+        SELECT * FROM staff
+    </select>
+    <select id="selectStaffByName" resultMap="BaseResultMap">
+        SELECT * FROM staff
+        <where>
+            <if test="Name != null and Name != ''">
+                staff_name like CONCAT('%',#{Name},'%')
+            </if>
+            <if test="staffHierarchy != null and staffHierarchy != ''">
+                AND staff_hierarchy=#{staffHierarchy}
+            </if>
+        </where>
+
+    </select>
+    <!--返回各大队指挥室-->
+    <select id="selectStaffBySectionName" resultMap="BaseResultMap">
+        SELECT * from staff f WHERE f.stafff_pid=#{staffid}
+    </select>
+    <select id="selectByPrimaryKeyBig" resultMap="BaseResultMap">
+    select *
+    from staff,section
+    where sys_staff_id = #{sysStaffId,jdbcType=INTEGER} and staff.sys_section_id=section.sys_section_id
+  </select>
+    <!--根据警号查询-->
+    <select id="selectStaffByNum" resultMap="BaseResultMap">
+        select f.*,s.section_name from staff f,section s
+        where f.sys_section_id=s.sys_section_id and  f.staff_num=#{staffNum}
+    </select>
+    <select id="selectStaffByXarea" resultMap="BaseResultMap">
+        SELECT f.* from xarea x,staff f
+        <where>
+            x.id=sys_gps_id
+            <if test="battalion!=null and battalion!='' ">
+                and x.battalion=#{battalion}
+            </if>
+            <if test="detachment!=null and detachment!='' ">
+                AND x.detachment=#{detachment}
+            </if>
+            <if test="station!=null and station!='' ">
+                AND x.station=#{station}
+            </if>
+            <if test="leader!=null and leader!='' ">
+                AND x.leader=#{leader}
+            </if>
+        </where>
+    </select>
+    <select id="selectStaffInfo" resultMap="BaseResultMap">
+        SELECT f.sys_gps_id,GROUP_CONCAT(f.staff_name SEPARATOR ',') staff_name
+        ,GROUP_CONCAT(f.stafftype SEPARATOR ',') stafftype
+        ,GROUP_CONCAT(f.strength SEPARATOR ',') strength
+        ,GROUP_CONCAT(f.change_shifts SEPARATOR ',') change_shifts from	 xarea x
+        JOIN staff f
+        ON x.id=f.sys_gps_id
+        GROUP BY x.`name`
+    </select>
+    <select id="selectStaffByGpsid" resultMap="BaseResultMap">
+        SELECT * FROM staff WHERE sys_gps_id=#{id}
+    </select>
+    <!--查询在岗人数-->
+    <select id="selectStaffByzg" resultMap="BaseResultMap">
+        SELECT * FROM patrolrecord p,staff f,section s
+        WHERE f.sys_section_id=s.sys_section_id and f.sys_staff_id=p.sys_staff_id
+        and to_days(p.patrol_record_begintime) = to_days(now())
+        AND p.patrol_record_endtime is NULL
+        <if test="sectionId!=null and sectionId!='' ">
+            AND f.sys_section_id=#{sectionId}
+        </if>
+        <if test="sectionPid!=null and sectionPid!='' ">
+            and s.section_pid=#{sectionPid}
+        </if>
+        <if test="sectionName!=null and sectionName!='' ">
+            and s.section_name LIKE CONCAT('%',#{sectionName},'%')
+        </if>
+        GROUP BY f.sys_staff_id;
+    </select>
+    <!--根据不同岗查询在线人GPS点-->
+    <select id="selectzaBystation" resultMap="BaseResultMap">
+        select *
+        from patrolrecord p,staff s,xarea x,xrelation xl
+        where to_days(p.patrol_record_begintime) = to_days(now())
+        <if test="station!=null and station!='' ">
+            and x.station = #{station}
+        </if>
+        <if test="conment!=null and conment!='' ">
+            and x.conment=#{conment}
+        </if>
+        <if test="grid!=null and grid!='' ">
+            and x.gridding LIKE CONCAT('%',#{grid},'%')
+        </if>
+        and p.sys_staff_id = s.sys_staff_id
+        and s.sys_staff_id = xl.staff_id
+        and xl.xarea_id = x.id
+        and p.patrol_record_endtime is null GROUP BY p.sys_staff_id
+    </select>
+    <!--大队或者区域应到人数-->
+    <select id="selectStaffByxarea" resultMap="BaseResultMap">
+      SELECT * FROM staff f,xrelation x,xarea a,section s WHERE s.sys_section_id=f.sys_section_id and
+      f.sys_staff_id=x.staff_id AND a.id=x.xarea_id AND a.id=#{id}
+
+    </select>
+
+    <!--应上岗人数-->
+    <select id="selectStaffYdByAll" resultMap="BaseResultMap">
+        SELECT f.*,a.battalion,c.* FROM staff f,xrelation x,xarea a,section c WHERE
+        f.sys_section_id=c.sys_section_id and f.sys_staff_id=x.staff_id AND a.id=x.xarea_id
+        and a.station != null
+        <if test="changeShifts!=null and changeShifts!='' ">
+            AND f.change_shifts=#{changeShifts}
+        </if>
+        <if test="SectionId!=null and SectionId!='' ">
+            AND a.section_Did =#{SectionId}
+        </if>
+        <if test="SectionZid!=null and SectionZid!='' ">
+            AND a.section_Zid =#{SectionZid}
+        </if>
+        GROUP BY f.sys_staff_id;
+    </select>
+    <!--所有在岗人-->
+    <select id="selectStaffSdByAll" resultMap="BaseResultMap">
+        SELECT f.*,p.patrol_record_begintime,p.patrol_record_endtime,p.patrol_record_gps,s.*
+        FROM patrolrecord p,staff f,section s
+        WHERE f.sys_section_id=s.sys_section_id and f.sys_staff_id=p.sys_staff_id
+        and to_days(p.patrol_record_begintime) = to_days(now())
+        AND p.patrol_record_endtime is NULL
+        <if test="changeShifts!=null and changeShifts!='' ">
+            AND f.change_shifts=#{changeShifts}
+        </if>
+        GROUP BY sys_staff_id;
+    </select>
+    <!--查询所有在线警力带出所在岗位-->
+    <select id="selectpoliceZx" resultMap="BaseResultMap">
+        SELECT f.*,p.patrol_record_begintime,p.patrol_record_endtime,s.*,a.*
+        FROM patrolrecord p,staff f,section s,xarea a,xrelation x
+        WHERE a.id=x.xarea_id AND f.sys_section_id=s.sys_section_id and
+        f.sys_staff_id=p.sys_staff_id and to_days(p.patrol_record_begintime) = to_days(now())
+        AND p.patrol_record_endtime is null
+        GROUP BY sys_staff_id;
+    </select>
+    <!--查询直系领导-->
+    <select id="selectStaffBypid" resultMap="BaseResultMap">
+        SELECT * from	 staff
+        WHERE sys_staff_id=(SELECT stafff_pid from	staff WHERE sys_staff_id=#{id})
+    </select>
+    <!--昨日所有警力-->
+    <select id="selecttotalforces" resultType="java.lang.Integer">
+      	SELECT COUNT(*) FROM (SELECT COUNT(*) FROM patrolrecord p,staff f,section s
+        WHERE f.sys_section_id=s.sys_section_id and f.sys_staff_id=p.sys_staff_id
+        and date(patrol_record_begintime) = date_sub(curdate(),interval 1 day)
+	    GROUP BY p.sys_staff_id) sb
+    </select>
+    <!--按大队-->
+    <select id="selecttotalforceszr" resultType="map">
+      SELECT sb.section_name as sectionName,COUNT(sb.sys_staff_id) as count from (	SELECT s.section_name,f.sys_staff_id,s.sys_section_id,s.section_pid FROM patrolrecord p,staff f,section s
+      WHERE f.sys_section_id=s.sys_section_id and f.sys_staff_id=p.sys_staff_id
+      and date(patrol_record_begintime) = date_sub(curdate(),interval 1 day)
+	  GROUP BY p.sys_staff_id) sb  GROUP BY SUBSTRING(sb.section_name,1,3)
+	  ORDER BY FIELD(SUBSTRING(sb.section_name,1,1),'一','二','三','四','五','六','七','八','九','十')
+    </select>
+    <!--查询其他在线民警-->
+    <select id="selectStaffByqita" resultMap="BaseResultMap">
+        select *
+        from patrolrecord p,staff s,xarea x,xrelation xl
+        where to_days(p.patrol_record_begintime) = to_days(now())
+        and p.sys_staff_id = s.sys_staff_id
+        and s.sys_staff_id = xl.staff_id
+        and xl.xarea_id = x.id
+        and station != '固定岗' and station != '高峰岗' and station != '高速岗' and conment != '2' and conment != '4' and station != '快速岗' and station != '区域'
+        and p.patrol_record_endtime is null GROUP BY p.sys_staff_id
+    </select>
+
+    <!--统计固定岗/高峰岗实到在线人数-->
+    <select id="countGdorGfSDsum" resultType="map" parameterType="java.lang.String">
+        select s.*,st.section_name
+        from patrolrecord p,staff s,xarea x,xrelation xl,section st
+        where to_days(p.patrol_record_begintime) = to_days(now())
+        and x.station = #{station}
+        <if test="battalion != null and battalion != ''">
+            and x.battalion = #{battalion}
+        </if>
+        and s.sys_section_id=st.sys_section_id
+        and p.sys_staff_id = s.sys_staff_id
+        and s.sys_staff_id = xl.staff_id
+        and xl.xarea_id = x.id
+        and p.patrol_record_endtime is null GROUP BY p.sys_staff_id
+    </select>
+    <!--统计-->
+    <select id="countGdorGfSDsumtj" resultType="map">
+        SELECT sb.battalion,sb.section_name as sectionName,COUNT(sb.sys_staff_id) as count from	 (
+        select s.*,st.section_name,x.battalion
+        from patrolrecord p,staff s,xarea x,xrelation xl,section st
+        where to_days(p.patrol_record_begintime) = to_days(now())
+        and x.station = '固定岗'
+        and s.sys_section_id=st.sys_section_id
+        and  p.sys_staff_id = s.sys_staff_id
+        and s.sys_staff_id = xl.staff_id
+        and xl.xarea_id = x.id
+        and p.patrol_record_endtime is null GROUP BY p.sys_staff_id) sb GROUP BY SUBSTRING(sb.section_name,1,3)
+	ORDER BY FIELD(SUBSTRING(sb.section_name,1,3),'一大队','二大队','三大队','四大队','五大队','六大队','七大队','八大队','九大队','十大队')
+    </select>
+
+    <!--统计铁骑实到在线人数-->
+    <select id="countTqSDsum" resultType="map" parameterType="java.lang.String">
+        select s.*,st.section_name
+        from patrolrecord p,staff s,xarea x,xrelation xl,section st
+        where to_days(p.patrol_record_begintime) = to_days(now())
+        <if test="battalion != null and battalion != ''">
+            and x.battalion = #{battalion}
+        </if>
+        and s.sys_section_id=st.sys_section_id
+        and p.sys_staff_id = s.sys_staff_id
+        and s.sys_staff_id = xl.staff_id
+        and xl.xarea_id = x.id and x.conment = '2'
+        and p.patrol_record_endtime is null GROUP BY p.sys_staff_id
+    </select>
+
+    <!--根据岗位查询各大队在线民警-->
+    <select id="selectcountBysection" resultType="map" parameterType="com.zygh.lz.admin.Xarea">
+        SELECT sb.section_name as sectionName,COUNT(sb.sys_staff_id) as count from (
+        select s.*,st.section_name,x.detachment
+        from patrolrecord p,staff s,xarea x,xrelation xl,section st
+        where to_days(p.patrol_record_begintime) = to_days(now())
+        <if test="station!=null and station != '' ">
+            <if test="station!='其它岗'">
+                and x.station = #{station}
+            </if>
+            <if test="station=='其它岗'">
+                and x.station not in ('固定岗','高峰岗','高速岗','快速岗','区域')
+                and x.conment not in ('2','4')
+            </if>
+        </if>
+        <if test="stafftype!=null and stafftype != '' ">
+            and s.stafftype = #{stafftype}
+        </if>
+        <if test="conment!=null and conment != '' ">
+            and x.conment = #{conment}
+        </if>
+        <if test="gridding!=null and gridding != '' ">
+            and x.gridding LIKE '%${gridding}%'
+        </if>
+        <if test="type!=null and type!= '' ">
+            AND (x.gridding like '%网格%' or x.type = '面')
+            AND x.gridding IS NOT NULL
+            AND x.gridding NOT LIKE '%级网格%'
+            AND x.conment NOT IN ('2','3')
+        </if>
+        and s.sys_section_id=st.sys_section_id
+        and p.sys_staff_id = s.sys_staff_id
+        and s.sys_staff_id = xl.staff_id
+        and xl.xarea_id = x.id
+        and p.patrol_record_endtime is null GROUP BY p.sys_staff_id) sb GROUP BY SUBSTRING(sb.section_name,1,3)
+        ORDER BY FIELD(SUBSTRING(sb.section_name,1,3),'一大队','二大队','三大队','四大队','五大队','六大队','七大队','八大队','九大队','十大队')
+    </select>
+
+
+    <!--根据岗位查询各大队下各中队在线民警-->
+    <select id="selectcountBydetachment" resultType="map" parameterType="com.zygh.lz.admin.Xarea">
+        SELECT sb.section_name as sectionName,COUNT(sb.sys_staff_id) as count from (
+        select s.*,st.section_name,x.detachment
+        from patrolrecord p,staff s,xarea x,xrelation xl,section st
+        where to_days(p.patrol_record_begintime) = to_days(now())
+        <if test="station!=null and station != '' ">
+            <if test="station!='其它岗'">
+                and x.station = #{station}
+            </if>
+            <if test="station=='其它岗'">
+                and x.station not in ('固定岗','高峰岗','高速岗','快速岗','区域')
+                and x.conment not in ('2','4')
+            </if>
+        </if>
+        <if test="stafftype!=null and stafftype != '' ">
+            and s.stafftype = #{stafftype}
+        </if>
+        <if test="conment!=null and conment != '' ">
+            and x.conment = #{conment}
+        </if>
+        <if test="gridding!=null and gridding != '' ">
+            and x.gridding LIKE '%${gridding}%'
+        </if>
+        <if test="type!=null and type!= '' ">
+            AND (x.gridding like '%网格%' or x.type = '面')
+            AND x.gridding IS NOT NULL
+            AND x.gridding NOT LIKE '%级网格%'
+            AND x.conment NOT IN ('2','3')
+        </if>
+        AND st.sys_section_id IN
+        (
+        SELECT sys_section_id FROM section
+        WHERE section_name LIKE '%${battalion}%'
+        )
+        and s.sys_section_id=st.sys_section_id
+        and p.sys_staff_id = s.sys_staff_id
+        and s.sys_staff_id = xl.staff_id
+        and xl.xarea_id = x.id
+        and p.patrol_record_endtime is null
+        GROUP BY p.sys_staff_id
+        ) sb
+        GROUP BY sb.section_name
+    </select>
+
+
+    <!--根据岗位查询各中队在线民警详情-->
+    <select id="selectAllBysection" resultMap="BaseResultMap" parameterType="com.zygh.lz.admin.Xarea">
+        SELECT *
+        FROM patrolrecord p,staff s,xarea X,xrelation xl,section st,
+        (SELECT * FROM gps g ORDER BY g.gps_time DESC) g
+        WHERE TO_DAYS(p.patrol_record_begintime) = TO_DAYS(NOW())
+        <if test="station!=null and station != '' ">
+            <if test="station!='其它岗'">
+                and x.station = #{station}
+            </if>
+            <if test="station=='其它岗'">
+                and x.station not in ('固定岗','高峰岗','高速岗','快速岗','区域')
+                and x.conment not in ('2','4')
+            </if>
+        </if>
+        <if test="stafftype!=null and stafftype != '' ">
+            and s.stafftype = #{stafftype}
+        </if>
+        <if test="conment!=null and conment != '' ">
+            and x.conment = #{conment}
+        </if>
+        <if test="gridding!=null and gridding != '' ">
+            and x.gridding LIKE '%${gridding}%'
+        </if>
+        <if test="type!=null and type!= '' ">
+            AND (x.gridding like '%网格%' or x.type = '面')
+            AND x.gridding IS NOT NULL
+            AND x.gridding NOT LIKE '%级网格%'
+            AND x.conment NOT IN ('2','3')
+        </if>
+        AND st.sys_section_id IN
+        (
+        SELECT sys_section_id FROM section
+        WHERE section_name = '${battalion}'
+        )
+        AND s.sys_section_id=st.sys_section_id
+        AND p.sys_staff_id = s.sys_staff_id
+        AND s.sys_staff_id = xl.staff_id
+        AND xl.xarea_id = x.id
+        and g.sys_staff_id = s.sys_staff_id
+        AND p.patrol_record_endtime IS NULL
+        GROUP BY p.sys_staff_id
+    </select>
+    <!--民警辅警各大队分布详情-->
+    <select id="selecttotalforcfb" resultType="map">
+        SELECT sb.section_name as sectionName,COUNT(sb.sys_staff_id) as count from (
+        SELECT s.section_name,f.sys_staff_id,s.sys_section_id,s.section_pid from
+        xarea x,xrelation xl,staff f,section s
+        WHERE x.id=xl.xarea_id AND xl.staff_id=f.sys_staff_id
+        AND f.sys_section_id=s.sys_section_id    AND f.stafftype=#{stafftype}
+        GROUP BY f.sys_staff_id ORDER BY  x.detachment
+        ) sb  GROUP BY SUBSTRING(sb.section_name,1,3)
+        ORDER BY FIELD(SUBSTRING(sb.section_name,1,1),'一','二','三','四','五','六','七','八','九','十')
+    </select>
+
+</mapper>

@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zygh.lz.mapper.TaskMapper">
+    <!--<cache type="com.zygh.lz.cache.MybatisRedisCache"/>-->
+    <resultMap id="BaseResultMap" type="com.zygh.lz.admin.Task">
+        <id column="sys_task_id" property="sysTaskId" jdbcType="INTEGER"/>
+        <result column="task_num" property="taskNum" jdbcType="VARCHAR"/>
+        <result column="sys_problem_id" property="sysProblemId" jdbcType="INTEGER"/>
+        <result column="launch_staff_id" property="launchStaffId" jdbcType="INTEGER"/>
+        <result column="accept_staff_id" property="acceptStaffId" jdbcType="INTEGER"/>
+        <result column="task_state" property="taskState" jdbcType="VARCHAR"/>
+        <result column="task_createtime" property="taskCreatetime" jdbcType="TIMESTAMP"/>
+        <result column="task_finishtime" property="taskFinishtime" jdbcType="TIMESTAMP"/>
+        <result column="task_title" property="taskTitle" jdbcType="VARCHAR"/>
+        <result column="task_describe" property="taskDescribe" jdbcType="VARCHAR"/>
+        <result column="task_money" property="taskMoney" jdbcType="VARCHAR"/>
+        <result column="task_plan_money" property="taskPlanMoney" jdbcType="VARCHAR"/>
+        <result column="task_detail" property="taskDetail" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    sys_task_id, task_num, sys_problem_id, launch_staff_id, accept_staff_id, task_state, 
+    task_createtime, task_finishtime, task_title, task_describe, task_money, task_plan_money, 
+    task_detail
+  </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from task
+        where sys_task_id = #{sysTaskId,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from task
+    where sys_task_id = #{sysTaskId,jdbcType=INTEGER}
+  </delete>
+    <insert id="insert" parameterType="com.zygh.lz.admin.Task">
+    insert into task (sys_task_id, task_num, sys_problem_id, 
+      launch_staff_id, accept_staff_id, task_state, 
+      task_createtime, task_finishtime, task_title, 
+      task_describe, task_money, task_plan_money, 
+      task_detail)
+    values (#{sysTaskId,jdbcType=INTEGER}, #{taskNum,jdbcType=VARCHAR}, #{sysProblemId,jdbcType=INTEGER}, 
+      #{launchStaffId,jdbcType=INTEGER}, #{acceptStaffId,jdbcType=INTEGER}, #{taskState,jdbcType=VARCHAR}, 
+      #{taskCreatetime,jdbcType=TIMESTAMP}, #{taskFinishtime,jdbcType=TIMESTAMP}, #{taskTitle,jdbcType=VARCHAR}, 
+      #{taskDescribe,jdbcType=VARCHAR}, #{taskMoney,jdbcType=VARCHAR}, #{taskPlanMoney,jdbcType=VARCHAR}, 
+      #{taskDetail,jdbcType=VARCHAR})
+  </insert>
+    <insert id="insertSelective" parameterType="com.zygh.lz.admin.Task">
+        insert into task
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="sysTaskId != null">
+                sys_task_id,
+            </if>
+            <if test="taskNum != null">
+                task_num,
+            </if>
+            <if test="sysProblemId != null">
+                sys_problem_id,
+            </if>
+            <if test="launchStaffId != null">
+                launch_staff_id,
+            </if>
+            <if test="acceptStaffId != null">
+                accept_staff_id,
+            </if>
+            <if test="taskState != null">
+                task_state,
+            </if>
+            <if test="taskCreatetime != null">
+                task_createtime,
+            </if>
+            <if test="taskFinishtime != null">
+                task_finishtime,
+            </if>
+            <if test="taskTitle != null">
+                task_title,
+            </if>
+            <if test="taskDescribe != null">
+                task_describe,
+            </if>
+            <if test="taskMoney != null">
+                task_money,
+            </if>
+            <if test="taskPlanMoney != null">
+                task_plan_money,
+            </if>
+            <if test="taskDetail != null">
+                task_detail,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="sysTaskId != null">
+                #{sysTaskId,jdbcType=INTEGER},
+            </if>
+            <if test="taskNum != null">
+                #{taskNum,jdbcType=VARCHAR},
+            </if>
+            <if test="sysProblemId != null">
+                #{sysProblemId,jdbcType=INTEGER},
+            </if>
+            <if test="launchStaffId != null">
+                #{launchStaffId,jdbcType=INTEGER},
+            </if>
+            <if test="acceptStaffId != null">
+                #{acceptStaffId,jdbcType=INTEGER},
+            </if>
+            <if test="taskState != null">
+                #{taskState,jdbcType=VARCHAR},
+            </if>
+            <if test="taskCreatetime != null">
+                #{taskCreatetime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="taskFinishtime != null">
+                #{taskFinishtime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="taskTitle != null">
+                #{taskTitle,jdbcType=VARCHAR},
+            </if>
+            <if test="taskDescribe != null">
+                #{taskDescribe,jdbcType=VARCHAR},
+            </if>
+            <if test="taskMoney != null">
+                #{taskMoney,jdbcType=VARCHAR},
+            </if>
+            <if test="taskPlanMoney != null">
+                #{taskPlanMoney,jdbcType=VARCHAR},
+            </if>
+            <if test="taskDetail != null">
+                #{taskDetail,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.zygh.lz.admin.Task">
+        update task
+        <set>
+            <if test="taskNum != null">
+                task_num = #{taskNum,jdbcType=VARCHAR},
+            </if>
+            <if test="sysProblemId != null">
+                sys_problem_id = #{sysProblemId,jdbcType=INTEGER},
+            </if>
+            <if test="launchStaffId != null">
+                launch_staff_id = #{launchStaffId,jdbcType=INTEGER},
+            </if>
+            <if test="acceptStaffId != null">
+                accept_staff_id = #{acceptStaffId,jdbcType=INTEGER},
+            </if>
+            <if test="taskState != null">
+                task_state = #{taskState,jdbcType=VARCHAR},
+            </if>
+            <if test="taskCreatetime != null">
+                task_createtime = #{taskCreatetime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="taskFinishtime != null">
+                task_finishtime = #{taskFinishtime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="taskTitle != null">
+                task_title = #{taskTitle,jdbcType=VARCHAR},
+            </if>
+            <if test="taskDescribe != null">
+                task_describe = #{taskDescribe,jdbcType=VARCHAR},
+            </if>
+            <if test="taskMoney != null">
+                task_money = #{taskMoney,jdbcType=VARCHAR},
+            </if>
+            <if test="taskPlanMoney != null">
+                task_plan_money = #{taskPlanMoney,jdbcType=VARCHAR},
+            </if>
+            <if test="taskDetail != null">
+                task_detail = #{taskDetail,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where sys_task_id = #{sysTaskId,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.zygh.lz.admin.Task">
+    update task
+    set task_num = #{taskNum,jdbcType=VARCHAR},
+      sys_problem_id = #{sysProblemId,jdbcType=INTEGER},
+      launch_staff_id = #{launchStaffId,jdbcType=INTEGER},
+      accept_staff_id = #{acceptStaffId,jdbcType=INTEGER},
+      task_state = #{taskState,jdbcType=VARCHAR},
+      task_createtime = #{taskCreatetime,jdbcType=TIMESTAMP},
+      task_finishtime = #{taskFinishtime,jdbcType=TIMESTAMP},
+      task_title = #{taskTitle,jdbcType=VARCHAR},
+      task_describe = #{taskDescribe,jdbcType=VARCHAR},
+      task_money = #{taskMoney,jdbcType=VARCHAR},
+      task_plan_money = #{taskPlanMoney,jdbcType=VARCHAR},
+      task_detail = #{taskDetail,jdbcType=VARCHAR}
+    where sys_task_id = #{sysTaskId,jdbcType=INTEGER}
+  </update>
+    <!--查询任务-->
+    <select id="selectAllTask" resultMap="BaseResultMap">
+    select * FROM task
+  </select>
+    <!--任务列表-->
+    <select id="selectAllTP" resultType="map">
+        SELECT t.*,p.problem_id,p.problem_describe,(SELECT staff_name FROM staff f WHERE
+        f.sys_staff_id=t.launch_staff_id ) AS launchName,
+        (SELECT staff_name FROM staff f WHERE f.sys_staff_id=t.accept_staff_id ) AS acceptName FROM task t,problem p
+        WHERE t.sys_problem_id=p.problem_id
+        AND t.task_state!='已完成'
+        AND p.problem_state!='已解决'
+        AND p.problem_check='通过'
+        <if test="acceptStaffId != null and acceptStaffId != ''">
+            AND accept_staff_id=#{acceptStaffId}
+        </if>
+        ORDER BY t.task_finishtime DESC
+    </select>
+    <!--我的任务-->
+    <select id="selectAllByAccept" resultType="map">
+        SELECT t.*,(SELECT staff_name FROM staff WHERE sys_staff_id=t.accept_staff_id) AS acceptName,
+        (SELECT staff_name FROM staff WHERE sys_staff_id=t.launch_staff_id) AS launchName
+        FROM task t
+        <where>
+            <if test="acceptStaffId != null">
+                accept_staff_id=#{acceptStaffId}
+            </if>
+            <if test="taskState != null and taskState!=''">
+                AND task_state LIKE concat('%',#{taskState},'%')
+            </if>
+            <if test="taskTitle != null and taskTitle != ''">
+                AND t.task_title LIKE CONCAT('%',#{taskTitle},'%')
+            </if>
+            <if test="taskCreatetime != null and taskCreatetime != ''">
+                AND task_createtime <![CDATA[>=]]> #{taskCreatetime}
+            </if>
+            <if test="taskFinishtime != null and taskFinishtime != ''">
+                AND task_finishtime <![CDATA[<=]]> #{taskFinishtime}
+            </if>
+        </where>
+
+    </select>
+    <!--查询最后一条任务-->
+    <select id="selectEnd" resultMap="BaseResultMap">
+    SELECT * FROM task ORDER BY sys_task_id DESC LIMIT 1
+  </select>
+    <!--统计-->
+    <select id="selectTaskByCount" resultType="map">
+        SELECT COUNT(t.sys_task_id) as num FROM task t,section s,staff f,problem p
+        WHERE t.sys_problem_id=p.problem_id and s.sys_section_id=f.sys_section_id
+        AND f.sys_staff_id=p.sys_staff_id
+        <if test="sectionId != null and sectionId != ''">
+            and f.sys_section_id=#{sectionId}
+        </if>
+        <if test="taskState != null and taskState != ''">
+            AND task_state=#{taskState}
+        </if>
+
+        <if test="time != null and time != ''">
+            AND t.task_createtime LIKE CONCAT('%',#{time},'%')
+        </if>
+    </select>
+
+    <!--统计-->
+    <select id="selectTaskByNum" resultType="map">
+        SELECT COUNT(DISTINCT t.sys_task_id) as num FROM task t,section s,staff f
+        WHERE t.accept_staff_id=f.sys_staff_id
+        and s.sys_section_id=f.sys_section_id
+        AND t.accept_staff_id=#{sysStaffId}
+        <if test="sectionId != null and sectionId != ''">
+            and f.sys_section_id=#{sectionId}
+        </if>
+        <if test="taskState != null and taskState != ''">
+            AND task_state=#{taskState}
+        </if>
+
+        <if test="time != null and time != ''">
+            AND t.task_createtime LIKE CONCAT('%',#{time},'%')
+        </if>
+        <if test="staffHierarchy != null and staffHierarchy != ''">
+            AND f.staff_hierarchy=#{staffHierarchy}
+        </if>
+        <if test="staffName != null and staffName != ''">
+            AND f.staff_name=#{staffName}
+        </if>
+    </select>
+    <!--任务详情-->
+    <select id="selectTaskByid" resultType="map">
+        SELECT t.*,(SELECT staff_name FROM staff WHERE sys_staff_id=t.accept_staff_id) AS acceptName,
+        (SELECT staff_name FROM staff WHERE sys_staff_id=t.launch_staff_id) AS launchName
+        FROM task t WHERE t.sys_task_id=#{id}
+    </select>
+    <!--批量删除-->
+    <delete id="deleteTaskById">
+        delete from task
+        where sys_task_id in
+        (
+        <foreach collection="array" separator="," item="sysTaskId">
+            #{sysTaskId}
+        </foreach>
+        )
+    </delete>
+    <!--查询本大队的任务-->
+    <select id="selectTaskBySection" resultType="map">
+        select t.*,f.*,s.section_name,(SELECT staff_name FROM staff WHERE sys_staff_id=launch_staff_id) as launchName,(SELECT
+        staff_name FROM staff WHERE sys_staff_id=accept_staff_id) AS acceptName FROM task t,staff f,section s WHERE
+        t.launch_staff_id=f.sys_staff_id
+        and f.sys_section_id=s.sys_section_id
+        <if test="sectionId != null and sectionId != ''">
+            AND s.sys_section_id = #{sectionId}
+        </if>
+        <if test="taskTitle != null and taskTitle != ''">
+            AND t.task_title LIKE CONCAT('%',#{taskTitle},'%')
+        </if>
+        <if test="taskCreatetime != null and taskCreatetime != ''">
+            AND task_createtime <![CDATA[>=]]> #{taskCreatetime}
+        </if>
+        <if test="taskFinishtime != null and taskFinishtime != ''">
+            AND task_finishtime <![CDATA[<=]]> #{taskFinishtime}
+        </if>
+    </select>
+    <!--查询任务细节为空的任务数据-->
+    <select id="selectTaskDescribe" resultType="map">
+        SELECT * from task WHERE task_describe is NULL OR task_describe=''
+        AND s.sys_section_id = #{sectionId}
+        <if test="taskTitle != null and taskTitle != ''">
+            AND t.task_title LIKE CONCAT('%',#{taskTitle},'%')
+        </if>
+        <if test="taskCreatetime != null and taskCreatetime != ''">
+            AND task_createtime <![CDATA[>=]]> #{taskCreatetime}
+        </if>
+        <if test="taskFinishtime != null and taskFinishtime != ''">
+            AND task_finishtime <![CDATA[<=]]> #{taskFinishtime}
+        </if>
+    </select>
+</mapper>

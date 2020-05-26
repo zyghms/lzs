@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zygh.lz.mapper.RoadMapper">
+    <!--<cache type="com.zygh.lz.cache.MybatisRedisCache"/>-->
+    <resultMap id="BaseResultMap" type="com.zygh.lz.admin.Road">
+        <id column="sys_road_id" property="sysRoadId" jdbcType="INTEGER"/>
+        <result column="sys_urban_id" property="sysUrbanId" jdbcType="INTEGER"/>
+        <result column="road_name" property="roadName" jdbcType="VARCHAR"/>
+        <result column="road_begin" property="roadBegin" jdbcType="VARCHAR"/>
+        <result column="road_over" property="roadOver" jdbcType="VARCHAR"/>
+        <result column="road_type" property="roadType" jdbcType="VARCHAR"/>
+        <result column="road_gps" property="roadGps" jdbcType="VARCHAR"/>
+        <result column="road_gps_begin" property="roadGpsBegin" jdbcType="VARCHAR"/>
+        <result column="road_gps_end" property="roadGpsEnd" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    sys_road_id, sys_urban_id, road_name, road_begin, road_over, road_type, road_gps, 
+    road_gps_begin, road_gps_end
+  </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from road
+        where sys_road_id = #{sysRoadId,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from road
+    where sys_road_id = #{sysRoadId,jdbcType=INTEGER}
+  </delete>
+    <insert id="insert" parameterType="com.zygh.lz.admin.Road">
+    insert into road (sys_road_id, sys_urban_id, road_name, 
+      road_begin, road_over, road_type, 
+      road_gps, road_gps_begin, road_gps_end
+      )
+    values (#{sysRoadId,jdbcType=INTEGER}, #{sysUrbanId,jdbcType=INTEGER}, #{roadName,jdbcType=VARCHAR}, 
+      #{roadBegin,jdbcType=VARCHAR}, #{roadOver,jdbcType=VARCHAR}, #{roadType,jdbcType=VARCHAR}, 
+      #{roadGps,jdbcType=VARCHAR}, #{roadGpsBegin,jdbcType=VARCHAR}, #{roadGpsEnd,jdbcType=VARCHAR}
+      )
+  </insert>
+    <insert id="insertSelective" parameterType="com.zygh.lz.admin.Road">
+        insert into road
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="sysRoadId != null">
+                sys_road_id,
+            </if>
+            <if test="sysUrbanId != null">
+                sys_urban_id,
+            </if>
+            <if test="roadName != null">
+                road_name,
+            </if>
+            <if test="roadBegin != null">
+                road_begin,
+            </if>
+            <if test="roadOver != null">
+                road_over,
+            </if>
+            <if test="roadType != null">
+                road_type,
+            </if>
+            <if test="roadGps != null">
+                road_gps,
+            </if>
+            <if test="roadGpsBegin != null">
+                road_gps_begin,
+            </if>
+            <if test="roadGpsEnd != null">
+                road_gps_end,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="sysRoadId != null">
+                #{sysRoadId,jdbcType=INTEGER},
+            </if>
+            <if test="sysUrbanId != null">
+                #{sysUrbanId,jdbcType=INTEGER},
+            </if>
+            <if test="roadName != null">
+                #{roadName,jdbcType=VARCHAR},
+            </if>
+            <if test="roadBegin != null">
+                #{roadBegin,jdbcType=VARCHAR},
+            </if>
+            <if test="roadOver != null">
+                #{roadOver,jdbcType=VARCHAR},
+            </if>
+            <if test="roadType != null">
+                #{roadType,jdbcType=VARCHAR},
+            </if>
+            <if test="roadGps != null">
+                #{roadGps,jdbcType=VARCHAR},
+            </if>
+            <if test="roadGpsBegin != null">
+                #{roadGpsBegin,jdbcType=VARCHAR},
+            </if>
+            <if test="roadGpsEnd != null">
+                #{roadGpsEnd,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.zygh.lz.admin.Road">
+        update road
+        <set>
+            <if test="sysUrbanId != null">
+                sys_urban_id = #{sysUrbanId,jdbcType=INTEGER},
+            </if>
+            <if test="roadName != null">
+                road_name = #{roadName,jdbcType=VARCHAR},
+            </if>
+            <if test="roadBegin != null">
+                road_begin = #{roadBegin,jdbcType=VARCHAR},
+            </if>
+            <if test="roadOver != null">
+                road_over = #{roadOver,jdbcType=VARCHAR},
+            </if>
+            <if test="roadType != null">
+                road_type = #{roadType,jdbcType=VARCHAR},
+            </if>
+            <if test="roadGps != null">
+                road_gps = #{roadGps,jdbcType=VARCHAR},
+            </if>
+            <if test="roadGpsBegin != null">
+                road_gps_begin = #{roadGpsBegin,jdbcType=VARCHAR},
+            </if>
+            <if test="roadGpsEnd != null">
+                road_gps_end = #{roadGpsEnd,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where sys_road_id = #{sysRoadId,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.zygh.lz.admin.Road">
+    update road
+    set sys_urban_id = #{sysUrbanId,jdbcType=INTEGER},
+      road_name = #{roadName,jdbcType=VARCHAR},
+      road_begin = #{roadBegin,jdbcType=VARCHAR},
+      road_over = #{roadOver,jdbcType=VARCHAR},
+      road_type = #{roadType,jdbcType=VARCHAR},
+      road_gps = #{roadGps,jdbcType=VARCHAR},
+      road_gps_begin = #{roadGpsBegin,jdbcType=VARCHAR},
+      road_gps_end = #{roadGpsEnd,jdbcType=VARCHAR}
+    where sys_road_id = #{sysRoadId,jdbcType=INTEGER}
+  </update>
+    <!--模糊查询道路-->
+    <select id="selectRoadByCondition" resultType="map">
+        SELECT * FROM road r,urban u WHERE r.sys_urban_id=u.sys_urban_id
+        <if test="keyword != null">
+            and r.road_name LIKE concat('%',#{keyword},'%')
+        </if>
+        <if test="roadType != null">
+            AND r.road_type LIKE concat('%',#{roadType},'%')
+        </if>
+        <if test="urbanName != null">
+            AND u.urban_name LIKE concat('%',#{urbanName},'%')
+        </if>
+
+    </select>
+    <!--查询所有道路-->
+    <select id="selectAllRoad" resultMap="BaseResultMap">
+    SELECT * FROM road
+  </select>
+</mapper>

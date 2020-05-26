@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zygh.lz.mapper.XlevelserviceMapper">
+    <!--<cache type="com.zygh.lz.cache.MybatisRedisCache"/>-->
+    <resultMap id="BaseResultMap" type="com.zygh.lz.admin.Xlevelservice">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="callsign" property="callsign" jdbcType="VARCHAR"/>
+        <result column="place" property="place" jdbcType="VARCHAR"/>
+        <result column="suboffice_id" property="subofficeId" jdbcType="INTEGER"/>
+        <result column="number" property="number" jdbcType="INTEGER"/>
+        <result column="section_id" property="sectionId" jdbcType="INTEGER"/>
+        <result column="ondutytime" property="ondutytime" jdbcType="VARCHAR"/>
+        <result column="location" property="location" jdbcType="VARCHAR"/>
+        <result column="hierarchy" property="hierarchy" jdbcType="VARCHAR"/>
+        <result column="conment" property="conment" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, callsign, place, suboffice_id, number, section_id, ondutytime, location, hierarchy, 
+    conment
+  </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from xlevelservice
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from xlevelservice
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+    <insert id="insert" parameterType="com.zygh.lz.admin.Xlevelservice">
+        <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into xlevelservice (callsign, place, suboffice_id,
+        number, section_id, ondutytime,
+        location, hierarchy, conment
+        )
+        values (#{callsign,jdbcType=VARCHAR}, #{place,jdbcType=VARCHAR}, #{subofficeId,jdbcType=INTEGER},
+        #{number,jdbcType=INTEGER}, #{sectionId,jdbcType=INTEGER}, #{ondutytime,jdbcType=VARCHAR},
+        #{location,jdbcType=VARCHAR}, #{hierarchy,jdbcType=VARCHAR}, #{conment,jdbcType=VARCHAR}
+        )
+    </insert>
+    <insert id="insertSelective" parameterType="com.zygh.lz.admin.Xlevelservice">
+        <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into xlevelservice
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="callsign != null">
+                callsign,
+            </if>
+            <if test="place != null">
+                place,
+            </if>
+            <if test="subofficeId != null">
+                suboffice_id,
+            </if>
+            <if test="number != null">
+                number,
+            </if>
+            <if test="sectionId != null">
+                section_id,
+            </if>
+            <if test="ondutytime != null">
+                ondutytime,
+            </if>
+            <if test="location != null">
+                location,
+            </if>
+            <if test="hierarchy != null">
+                hierarchy,
+            </if>
+            <if test="conment != null">
+                conment,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="callsign != null">
+                #{callsign,jdbcType=VARCHAR},
+            </if>
+            <if test="place != null">
+                #{place,jdbcType=VARCHAR},
+            </if>
+            <if test="subofficeId != null">
+                #{subofficeId,jdbcType=INTEGER},
+            </if>
+            <if test="number != null">
+                #{number,jdbcType=INTEGER},
+            </if>
+            <if test="sectionId != null">
+                #{sectionId,jdbcType=INTEGER},
+            </if>
+            <if test="ondutytime != null">
+                #{ondutytime,jdbcType=VARCHAR},
+            </if>
+            <if test="location != null">
+                #{location,jdbcType=VARCHAR},
+            </if>
+            <if test="hierarchy != null">
+                #{hierarchy,jdbcType=VARCHAR},
+            </if>
+            <if test="conment != null">
+                #{conment,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.zygh.lz.admin.Xlevelservice">
+        update xlevelservice
+        <set>
+            <if test="callsign != null">
+                callsign = #{callsign,jdbcType=VARCHAR},
+            </if>
+            <if test="place != null">
+                place = #{place,jdbcType=VARCHAR},
+            </if>
+            <if test="subofficeId != null">
+                suboffice_id = #{subofficeId,jdbcType=INTEGER},
+            </if>
+            <if test="number != null">
+                number = #{number,jdbcType=INTEGER},
+            </if>
+            <if test="sectionId != null">
+                section_id = #{sectionId,jdbcType=INTEGER},
+            </if>
+            <if test="ondutytime != null">
+                ondutytime = #{ondutytime,jdbcType=VARCHAR},
+            </if>
+            <if test="location != null">
+                location = #{location,jdbcType=VARCHAR},
+            </if>
+            <if test="hierarchy != null">
+                hierarchy = #{hierarchy,jdbcType=VARCHAR},
+            </if>
+            <if test="conment != null">
+                conment = #{conment,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.zygh.lz.admin.Xlevelservice">
+    update xlevelservice
+    set callsign = #{callsign,jdbcType=VARCHAR},
+      place = #{place,jdbcType=VARCHAR},
+      suboffice_id = #{subofficeId,jdbcType=INTEGER},
+      number = #{number,jdbcType=INTEGER},
+      section_id = #{sectionId,jdbcType=INTEGER},
+      ondutytime = #{ondutytime,jdbcType=VARCHAR},
+      location = #{location,jdbcType=VARCHAR},
+      hierarchy = #{hierarchy,jdbcType=VARCHAR},
+      conment = #{conment,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+    <!--全部应到-->
+    <select id="selectorderlyAll" resultType="java.lang.Integer">
+        SELECT SUM(number) as number FROM xlevelservice
+        <if test="sectionName!=null and sectionName!='' ">
+            where section_id=(SELECT sys_section_id FROM section WHERE section_name=#{sectionName})
+        </if>
+
+    </select>
+    <!--一级应到-->
+    <select id="selectorderlyoneyd" resultType="map">
+        SELECT s.section_name as name,SUM(number) as YDnum FROM xlevelservice x,section s
+        WHERE x.section_id=s.sys_section_id AND hierarchy =1
+        <if test="sectionName!=null and sectionName!='' ">
+            and section_name=#{sectionName}
+        </if>
+        GROUP BY x.section_id
+    </select>
+    <select id="selectyjyd" resultType="java.lang.Integer">
+        SELECT SUM(sb.number) as number from ( SELECT s.section_name,SUM(number) as number
+        FROM xlevelservice x,section s WHERE x.section_id=s.sys_section_id AND hierarchy =1
+        <if test="sectionName!=null and sectionName!='' ">
+            and s.section_name=#{sectionName}
+        </if>
+        GROUP BY x.section_id) sb
+    </select>
+
+    <!--二级应到-->
+    <select id="selectorderlytweyd" resultType="map">
+        SELECT s.section_name as name,SUM(number) as YDnum FROM xlevelservice x,section s
+        WHERE x.section_id=s.sys_section_id AND hierarchy =2
+        <if test="sectionName!=null and sectionName!='' ">
+            and section_name=#{sectionName}
+        </if>
+        GROUP BY x.section_id
+    </select>
+    <select id="selectejyd" resultType="java.lang.Integer">
+        SELECT SUM(sb.number) as number from (SELECT s.section_name, count( * ) AS COUNT,SUM(number) as number
+        FROM xlevelservice x,section s WHERE x.section_id=s.sys_section_id AND hierarchy =2
+        <if test="sectionName!=null and sectionName!='' ">
+            and s.section_name=#{sectionName}
+        </if>
+        GROUP BY x.section_id) sb
+
+    </select>
+
+    <!--三级应到-->
+    <select id="selectorderlythreeyd" resultType="map">
+        SELECT s.section_name as name,SUM(number) as YDnum FROM xlevelservice x,section s
+        WHERE x.section_id=s.sys_section_id AND hierarchy =3
+        <if test="sectionName!=null and sectionName!='' ">
+            and s.section_name=#{sectionName}
+        </if>
+        GROUP BY x.section_id
+    </select>
+    <select id="selectsjyd" resultType="java.lang.Integer">
+        SELECT SUM(sb.number) as number from (SELECT s.section_name, count( * ) AS COUNT,SUM(number) as number
+        FROM xlevelservice x,section s WHERE x.section_id=s.sys_section_id AND hierarchy =3
+        <if test="sectionName!=null and sectionName!='' ">
+            and s.section_name=#{sectionName}
+        </if>
+        GROUP BY x.section_id) sb
+    </select>
+    <select id="selectxleveBydj" resultType="map">
+        SELECT * from xlevelservice
+        <where>
+            <if test="hierarchy!=null and hierarchy!='' ">
+                hierarchy =#{hierarchy}
+            </if>
+            <if test="sectionName!=null and sectionName!='' ">
+                AND section_id=(SELECT sys_section_id from section
+                WHERE section_name=#{sectionName})
+            </if>
+        </where>
+    </select>
+    <select id="selectXleveAll" resultMap="BaseResultMap">
+        SELECT * from	 xlevelservice
+    </select>
+</mapper>

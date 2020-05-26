@@ -1,0 +1,529 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zygh.lz.mapper.ProblemMapper">
+    <resultMap id="BaseResultMap" type="com.zygh.lz.admin.Problem">
+        <id column="problem_id" property="problemId" jdbcType="INTEGER"/>
+        <result column="problem_num" property="problemNum" jdbcType="VARCHAR"/>
+        <result column="problem_type" property="problemType" jdbcType="INTEGER"/>
+        <result column="problem_describe" property="problemDescribe" jdbcType="VARCHAR"/>
+        <result column="problem_state" property="problemState" jdbcType="VARCHAR"/>
+        <result column="problem_picture" property="problemPicture" jdbcType="VARCHAR"/>
+        <result column="problem_video" property="problemVideo" jdbcType="VARCHAR"/>
+        <result column="problem_gps_x" property="problemGpsX" jdbcType="VARCHAR"/>
+        <result column="problem_gps_y" property="problemGpsY" jdbcType="VARCHAR"/>
+        <result column="problem_date" property="problemDate" jdbcType="TIMESTAMP"/>
+        <result column="problem_check" property="problemCheck" jdbcType="VARCHAR"/>
+        <result column="problem_detail" property="problemDetail" jdbcType="VARCHAR"/>
+        <result column="sys_patrol_record_id" property="sysPatrolRecordId" jdbcType="INTEGER"/>
+        <result column="sys_staff_id" property="sysStaffId" jdbcType="INTEGER"/>
+        <result column="road_name" property="roadName" jdbcType="VARCHAR"/>
+        <result column="accept_id" property="acceptId" jdbcType="INTEGER"/>
+        <result column="section_name" property="sectionName" jdbcType="VARCHAR"/>
+        <result column="section_pid" property="sectionPid" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+    problem_id, problem_num, problem_type, problem_describe, problem_state, problem_picture, 
+    problem_video, problem_gps_x, problem_gps_y, problem_date, problem_check, problem_detail, 
+    sys_patrol_record_id, sys_staff_id, road_name, accept_id
+  </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from problem
+        where problem_id = #{problemId,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from problem
+    where problem_id = #{problemId,jdbcType=INTEGER} and problem_check='未审核'
+  </delete>
+    <insert id="insert" parameterType="com.zygh.lz.admin.Problem">
+    insert into problem (problem_id, problem_num, problem_type, 
+      problem_describe, problem_state, problem_picture, 
+      problem_video, problem_gps_x, problem_gps_y, 
+      problem_date, problem_check, problem_detail, 
+      sys_patrol_record_id, sys_staff_id, road_name, 
+      accept_id)
+    values (#{problemId,jdbcType=INTEGER}, #{problemNum,jdbcType=VARCHAR}, #{problemType,jdbcType=INTEGER},
+      #{problemDescribe,jdbcType=VARCHAR}, #{problemState,jdbcType=VARCHAR}, #{problemPicture,jdbcType=VARCHAR}, 
+      #{problemVideo,jdbcType=VARCHAR}, #{problemGpsX,jdbcType=VARCHAR}, #{problemGpsY,jdbcType=VARCHAR}, 
+      #{problemDate,jdbcType=TIMESTAMP}, #{problemCheck,jdbcType=VARCHAR}, #{problemDetail,jdbcType=VARCHAR}, 
+      #{sysPatrolRecordId,jdbcType=INTEGER}, #{sysStaffId,jdbcType=INTEGER}, #{roadName,jdbcType=VARCHAR}, 
+      #{acceptId,jdbcType=INTEGER})
+  </insert>
+    <insert id="insertSelective" parameterType="com.zygh.lz.admin.Problem">
+        insert into problem
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="problemId != null">
+                problem_id,
+            </if>
+            <if test="problemNum != null">
+                problem_num,
+            </if>
+            <if test="problemType != null">
+                problem_type,
+            </if>
+            <if test="problemDescribe != null">
+                problem_describe,
+            </if>
+            <if test="problemState != null">
+                problem_state,
+            </if>
+            <if test="problemPicture != null">
+                problem_picture,
+            </if>
+            <if test="problemVideo != null">
+                problem_video,
+            </if>
+            <if test="problemGpsX != null">
+                problem_gps_x,
+            </if>
+            <if test="problemGpsY != null">
+                problem_gps_y,
+            </if>
+            <if test="problemDate != null">
+                problem_date,
+            </if>
+            <if test="problemCheck != null">
+                problem_check,
+            </if>
+            <if test="problemDetail != null">
+                problem_detail,
+            </if>
+            <if test="sysPatrolRecordId != null">
+                sys_patrol_record_id,
+            </if>
+            <if test="sysStaffId != null">
+                sys_staff_id,
+            </if>
+            <if test="roadName != null">
+                road_name,
+            </if>
+            <if test="acceptId != null">
+                accept_id,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="problemId != null">
+                #{problemId,jdbcType=INTEGER},
+            </if>
+            <if test="problemNum != null">
+                #{problemNum,jdbcType=VARCHAR},
+            </if>
+            <if test="problemType != null">
+                #{problemType,jdbcType=INTEGER},
+            </if>
+            <if test="problemDescribe != null">
+                #{problemDescribe,jdbcType=VARCHAR},
+            </if>
+            <if test="problemState != null">
+                #{problemState,jdbcType=VARCHAR},
+            </if>
+            <if test="problemPicture != null">
+                #{problemPicture,jdbcType=VARCHAR},
+            </if>
+            <if test="problemVideo != null">
+                #{problemVideo,jdbcType=VARCHAR},
+            </if>
+            <if test="problemGpsX != null">
+                #{problemGpsX,jdbcType=VARCHAR},
+            </if>
+            <if test="problemGpsY != null">
+                #{problemGpsY,jdbcType=VARCHAR},
+            </if>
+            <if test="problemDate != null">
+                #{problemDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="problemCheck != null">
+                #{problemCheck,jdbcType=VARCHAR},
+            </if>
+            <if test="problemDetail != null">
+                #{problemDetail,jdbcType=VARCHAR},
+            </if>
+            <if test="sysPatrolRecordId != null">
+                #{sysPatrolRecordId,jdbcType=INTEGER},
+            </if>
+            <if test="sysStaffId != null">
+                #{sysStaffId,jdbcType=INTEGER},
+            </if>
+            <if test="roadName != null">
+                #{roadName,jdbcType=VARCHAR},
+            </if>
+            <if test="acceptId != null">
+                #{acceptId,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.zygh.lz.admin.Problem">
+        update problem
+        <set>
+            <if test="problemNum != null">
+                problem_num = #{problemNum,jdbcType=VARCHAR},
+            </if>
+            <if test="problemType != null">
+                problem_type = #{problemType,jdbcType=INTEGER},
+            </if>
+            <if test="problemDescribe != null">
+                problem_describe = #{problemDescribe,jdbcType=VARCHAR},
+            </if>
+            <if test="problemState != null">
+                problem_state = #{problemState,jdbcType=VARCHAR},
+            </if>
+            <if test="problemPicture != null">
+                problem_picture = #{problemPicture,jdbcType=VARCHAR},
+            </if>
+            <if test="problemVideo != null">
+                problem_video = #{problemVideo,jdbcType=VARCHAR},
+            </if>
+            <if test="problemGpsX != null">
+                problem_gps_x = #{problemGpsX,jdbcType=VARCHAR},
+            </if>
+            <if test="problemGpsY != null">
+                problem_gps_y = #{problemGpsY,jdbcType=VARCHAR},
+            </if>
+            <if test="problemDate != null">
+                problem_date = #{problemDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="problemCheck != null">
+                problem_check = #{problemCheck,jdbcType=VARCHAR},
+            </if>
+            <if test="problemDetail != null">
+                problem_detail = #{problemDetail,jdbcType=VARCHAR},
+            </if>
+            <if test="sysPatrolRecordId != null">
+                sys_patrol_record_id = #{sysPatrolRecordId,jdbcType=INTEGER},
+            </if>
+            <if test="sysStaffId != null">
+                sys_staff_id = #{sysStaffId,jdbcType=INTEGER},
+            </if>
+            <if test="roadName != null">
+                road_name = #{roadName,jdbcType=VARCHAR},
+            </if>
+            <if test="acceptId != null">
+                accept_id = #{acceptId,jdbcType=INTEGER},
+            </if>
+        </set>
+        where problem_id = #{problemId,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.zygh.lz.admin.Problem">
+    update problem
+    set problem_num = #{problemNum,jdbcType=VARCHAR},
+      problem_type = #{problemType,jdbcType=INTEGER},
+      problem_describe = #{problemDescribe,jdbcType=VARCHAR},
+      problem_state = #{problemState,jdbcType=VARCHAR},
+      problem_picture = #{problemPicture,jdbcType=VARCHAR},
+      problem_video = #{problemVideo,jdbcType=VARCHAR},
+      problem_gps_x = #{problemGpsX,jdbcType=VARCHAR},
+      problem_gps_y = #{problemGpsY,jdbcType=VARCHAR},
+      problem_date = #{problemDate,jdbcType=TIMESTAMP},
+      problem_check = #{problemCheck,jdbcType=VARCHAR},
+      problem_detail = #{problemDetail,jdbcType=VARCHAR},
+      sys_patrol_record_id = #{sysPatrolRecordId,jdbcType=INTEGER},
+      sys_staff_id = #{sysStaffId,jdbcType=INTEGER},
+      road_name = #{roadName,jdbcType=VARCHAR},
+      accept_id = #{acceptId,jdbcType=INTEGER}
+    where problem_id = #{problemId,jdbcType=INTEGER}
+  </update>
+    <!--查询跟巡查记录相关的问题-->
+    <select id="selectProblemByRecord" resultMap="BaseResultMap">
+         SELECT *
+         FROM problem p
+         WHERE p.sys_patrol_record_id=#{sysPatrolRecordId} and problem_check='通过'
+         ORDER BY problem_date DESC
+    </select>
+    <!--根据人查询全部问题  (所有问题)-->
+    <select id="selectProblemByStaffId" resultMap="BaseResultMap">
+        SELECT * FROM problem
+        <where>
+            <if test="staffId != null">
+                sys_staff_id = #{staffId}
+            </if>
+            and problem_check='通过'
+        </where>
+        ORDER BY problem_date DESC
+    </select>
+    <!--查询问题解决未解决个数-->
+    <select id="selectProblemByRosove" resultType="map">
+        SELECT * FROM problem WHERE problem_state = #{problemState} and problem_check='通过'
+    </select>
+    <!--查询所有问题状态-->
+    <select id="selectProblemType" resultType="map">
+       SELECT DISTINCT problem_state
+       FROM section,problem,staff
+       WHERE section.sys_section_id=staff.sys_section_id
+       AND problem.sys_staff_id=staff.sys_staff_id and problem_check='通过'
+    </select>
+    <!--查询问题表里所有问题关联的大队-->
+    <select id="selectSectionType" resultType="map">
+        SELECT DISTINCT section_name
+         FROM section,problem,staff
+         WHERE section.sys_section_id=staff.sys_section_id AND problem.sys_staff_id=staff.sys_staff_id and problem_check='通过'
+         ORDER BY section_name asc
+    </select>
+    <!--部门个数-->
+    <select id="selectSetionTotal" resultType="map">
+        SELECT DISTINCT  COUNT(section_name) AS value,c.section_name as name
+        FROM section c,problem,staff
+        WHERE c.sys_section_id=staff.sys_section_id AND problem.sys_staff_id=staff.sys_staff_id and problem_check='通过'
+        GROUP BY section_name
+    </select>
+    <!--问题个数-->
+    <select id="selectProblemTotal" resultType="map">
+        SELECT DISTINCT  COUNT(section_name) AS section_pid,problem_state,c.section_name
+        FROM section c,problem,staff
+        WHERE c.sys_section_id=staff.sys_section_id AND problem.sys_staff_id=staff.sys_staff_id and problem_check='通过'
+        GROUP BY section_name,problem_state
+        ORDER BY section_name asc
+    </select>
+    <!--&lt;!&ndash;问题个数&ndash;&gt;
+    <select id="selectProblemTotalfu" resultMap="BaseResultMap">
+        SELECT DISTINCT  COUNT(section_name) AS section_pid,problem_state,c.section_name
+        FROM section c,problem,staff
+        WHERE c.sys_section_id=staff.sys_section_id AND problem.sys_staff_id=staff.sys_staff_id
+        AND c.sys_section_id=#{sectionId}
+        GROUP BY section_name,problem_state
+        ORDER BY section_name asc
+    </select>-->
+    <!--按照大队进行层次划分zs-->
+    <select id="selectProblemTotal1" resultType="map" >
+        SELECT COUNT(section_name) AS value,problem_state AS name
+        FROM section c,problem,staff
+        WHERE c.sys_section_id=staff.sys_section_id AND problem.sys_staff_id=staff.sys_staff_id and problem_check='通过'
+        GROUP BY section_name,problem_state
+        ORDER BY section_name asc
+    </select>
+    <!--按照大队名称统计数据zs-->
+    <select id="selectProblemTotalfu" resultMap="BaseResultMap">
+        SELECT DISTINCT  COUNT(section_name) AS problem_id,problem_state,c.section_name as problem_describe
+        FROM section c,problem,staff
+        WHERE c.sys_section_id=staff.sys_section_id AND problem.sys_staff_id=staff.sys_staff_id
+        AND c.sys_section_id=#{sectionId} and problem_check='通过'
+        GROUP BY section_name,problem_state
+        ORDER BY section_name asc
+    </select>
+
+    <!--根据大队查询出巡查问题-->
+    <select id="selectProblemBysectionName" resultMap="BaseResultMap">
+        SELECT  p.*   FROM
+        problem p,staff s,section t WHERE t.sys_section_id=s.sys_section_id AND
+         p.sys_staff_id=s.sys_staff_id AND t.section_name=#{sectionName} and problem_check='通过'
+    </select>
+    <select id="selectProblemBytype" resultType="map">
+         SELECT DISTINCT  COUNT(section_name) AS section_pid,section_name
+        FROM section,problem,staff
+        WHERE section.sys_section_id=staff.sys_section_id AND problem.sys_staff_id=staff.sys_staff_id AND section_name=#{sectionName} and problem_check='通过'
+        GROUP BY section_name
+    </select>
+
+    <select id="selectProblemTotaBysectionName" resultType="map">
+        SELECT DISTINCT  COUNT(section_name) AS section_pid,problem_state,section_name
+        FROM section,problem,staff
+        WHERE section.sys_section_id=staff.sys_section_id AND problem.sys_staff_id=staff.sys_staff_id AND section_name=#{sectionName} and problem_check='通过'
+        GROUP BY section_name,problem_state
+    </select>
+    <!--根据道路类型查询问题-->
+    <select id="selectAllByRoadType" resultType="map">
+      SELECT *
+      FROM problem p,staff s,section se
+      WHERE p.`sys_staff_id`=s.sys_staff_id AND s.sys_section_id=se.sys_section_id and problem_check='通过'
+      AND p.road_name=#{roadType} ORDER BY problem_date desc
+    </select>
+    <!--问题模糊查询-->
+    <select id="selectDim" resultType="map">
+        SELECT p.*,se.*,y.types,(SELECT staff_name FROM staff WHERE sys_staff_id=p.sys_staff_id) AS launchName ,
+        (SELECT staff_name FROM staff WHERE sys_staff_id=p.accept_id) AS acceptName
+        FROM problem p,staff s,section se,problemtype y
+        <where>
+            p.sys_staff_id=s.sys_staff_id AND
+            s.sys_section_id=se.sys_section_id
+            AND p.problem_type=y.id
+            <if test="roadName!=null and roadName!='' ">
+                and p.road_name=#{roadName}
+            </if>
+            <if test="problemDetail!=null and problemDetail!='' ">
+                and p.problem_detail!=#{problemDetail}
+            </if>
+            <if test="staffName!=null and staffName!='' ">
+                and staff_name like CONCAT('%',#{staffName},'%')
+            </if>
+            <if test="sectionName!=null and sectionName!='' ">
+                and section_name =#{sectionName}
+            </if>
+            <if test="problemStrat!=null and problemStrat!='' ">
+                and problem_state =#{problemStrat}
+            </if>
+            <if test="staffHierarchy!=null and staffHierarchy!='' ">
+                and staff_hierarchy =#{staffHierarchy}
+            </if>
+            <if test="beginTime != null and beginTime != ''">AND problem_date <![CDATA[>=]]>
+                #{beginTime}
+            </if>
+            <if test="endTime != null and endTime != ''">AND problem_date <![CDATA[<=]]>
+                #{endTime}
+            </if>
+            <if test="problemCheck != null and problemCheck != ''">
+                and problem_check=#{problemCheck}
+            </if>
+        </where>
+        ORDER BY problem_date DESC
+    </select>
+    <!--根据人模糊查询问题-->
+    <select id="selectDimStaff" resultType="map">
+        SELECT *
+        FROM problem p,staff s,patrolrecord pr,section se
+        <where>
+            p.sys_patrol_record_id=pr.sys_patrol_record_id AND pr.sys_staff_id=s.sys_staff_id AND
+            s.sys_section_id=se.sys_section_id AND s.sys_staff_id = #{SysStaffId}
+            <if test="beginTime != null and beginTime != ''">AND problem_findtime <![CDATA[>=]]>
+                #{beginTime}
+            </if>
+            <if test="endTime != null and endTime != ''">AND problem_findtime <![CDATA[<=]]>
+                #{endTime}
+            </if>
+        </where>  and problem_check='通过'
+        ORDER BY problem_date DESC
+    </select>
+    <!--根据条件模糊查询不同部门的已解决和未解决的问题数-->
+    <select id="selectDimAll" resultType="com.zygh.lz.admin.ProblemDemo">
+        select count(*) as count ,problem_state as problemResove,section_name as sectionName from problem AS p,staff AS s,section
+        where p.`sys_staff_id` =s.`sys_staff_id`
+		AND s.`sys_section_id` =section.`sys_section_id`
+        and p.problem_state='已完成'
+        AND  p.problem_findtime BETWEEN #{startTime} AND #{endTime}
+        AND section_name=#{section_name} and problem_check='通过'
+        ORDER BY problem_date DESC
+    </select>
+    <!--根据条件模糊查询不同部门发现的问题数-->
+    <select id="selectDimAll1" resultType="com.zygh.lz.admin.ProblemDemo">
+        select count(*) as count ,problem_state as problemResove,section_name as sectionName from problem AS p,staff AS
+        s,section
+        where
+        <if test="startTime!=null and startTime!='' and endTime!=null and endTime!=''">
+            problem_findtime BETWEEN #{startTime} AND #{endTime}
+        </if>
+        AND p.`sys_staff_id` =s.`sys_staff_id`
+        AND s.`sys_section_id` =section.`sys_section_id`
+        AND section_name=#{section_name} and problem_check='通过'
+        ORDER BY problem_date DESC
+    </select>
+    <!---->
+    <select id="selectDimAllSy" resultType="com.zygh.lz.admin.ProblemDemo">
+         select count(*) as count ,problem_state as problemResove,section_name as sectionName from problem AS p,staff AS s,section
+        where  problem_state=#{problem_resove}
+        AND p.`sys_staff_id` =s.`sys_staff_id`
+        AND s.`sys_section_id` =section.`sys_section_id` AND section_name=#{section_name} and problem_check='通过'
+        ORDER BY problem_date DESC
+    </select>
+    <!--条件查询没有核查的问题-->
+    <select id="selectProblem" resultType="map">
+        SELECT p.*,s.*,y.types,(SELECT staff_name FROM staff WHERE sys_staff_id=p.sys_staff_id) AS launchName,
+        (SELECT staff_name FROM staff WHERE sys_staff_id=p.accept_id) AS acceptName
+        FROM problem p,staff f,section s,problemtype y WHERE
+        p.sys_staff_id=f.sys_staff_id and f.sys_section_id=s.sys_section_id
+        AND p.problem_type=y.id
+        AND p.problem_check='未审核'
+        <if test="roadName != null and roadName !=''">
+            AND p.road_name=#{roadName}
+        </if>
+        <if test="staffAcceptId != null and staffAcceptId !=''">
+            AND p.sys_staff_id=#{staffAcceptId}
+        </if>
+        <if test="problemStrat != null and problemStrat !=''">
+            AND p.problem_state=#{problemStrat}
+        </if>
+        ORDER BY problem_date DESC
+    </select>
+    <!--查询所有除去已完成以外的多有问题-->
+    <select id="selectProblemByState" resultMap="BaseResultMap">
+        SELECT * FROM problem WHERE problem_state!='已解决' and problem_check='通过'
+    </select>
+    <!--查询最后一条问题-->
+    <select id="selectByProblemEnd" resultMap="BaseResultMap">
+        SELECT * FROM problem where problem_check='通过'ORDER BY problem_id   DESC LIMIT 1
+    </select>
+    <!--问题按年按月统计统计-->
+    <select id="selectProblemByCount" resultType="map">
+        SELECT COUNT(p.problem_id) as num FROM section s,staff f,problem p WHERE
+        s.sys_section_id=f.sys_section_id AND f.sys_staff_id=p.sys_staff_id
+        <if test="sectionId != null and sectionId !=''">
+            and f.sys_section_id=#{sectionId}
+        </if>
+        <if test="problemState != null and problemState !=''">
+            AND p.problem_state=#{problemState}
+        </if>
+        <if test="time != null and time !=''">
+            AND problem_date LIKE CONCAT('%',#{time},'%')
+        </if>
+        and problem_check='通过'
+    </select>
+    <!--按人统计-->
+    <select id="selectProblemByNum" resultType="map">
+        SELECT COUNT(p.problem_id) as num FROM section s,staff f,problem p WHERE
+        s.sys_section_id=f.sys_section_id AND f.sys_staff_id=p.sys_staff_id
+        AND p.sys_staff_id=#{sysStaffId}
+        <if test="sectionId != null and sectionId !=''">
+            and f.sys_section_id=#{sectionId}
+        </if>
+        <if test="problemState != null and problemState !=''">
+            AND p.problem_state=#{problemState}
+        </if>
+        <if test="time != null and time !=''">
+            AND problem_date LIKE CONCAT('%',#{time},'%')
+        </if>
+        <if test="staffHierarchy != null and staffHierarchy != ''">
+            AND f.staff_hierarchy=#{staffHierarchy}
+        </if>
+        <if test="staffName != null and staffName != ''">
+            AND f.staff_name=#{staffName}
+        </if>
+        and problem_check='通过'
+        GROUP BY f.staff_name
+    </select>
+    <!--根据id查询问题详情-->
+    <select id="selectProblemByid" resultType="map">
+        SELECT y.types,p.*,s.*,(SELECT staff_name FROM staff WHERE sys_staff_id=p.sys_staff_id) AS launchName,
+        (SELECT staff_name FROM staff WHERE sys_staff_id=p.accept_id) AS acceptName
+        FROM problem p,staff f,section s,problemtype y WHERE
+        p.sys_staff_id=f.sys_staff_id and f.sys_section_id=s.sys_section_id AND p.problem_type=y.id
+            and p.problem_id=#{id}
+    </select>
+    <!--查询所有不能解决的问题-->
+    <select id="selectProbleByStart" resultType="map">
+        SELECT p.*,se.*,y.types,(SELECT staff_name FROM staff WHERE sys_staff_id=p.sys_staff_id) AS launchName ,
+        (SELECT staff_name FROM staff WHERE sys_staff_id=p.accept_id) AS acceptName
+        FROM problem p,staff s,section se,problemtype y WHERE p.sys_staff_id=s.sys_staff_id AND
+            s.sys_section_id=se.sys_section_id
+            AND p.problem_type=y.id AND p.problem_state=#{problemState} and problem_check='通过'
+    </select>
+    <!--模糊查询-->
+    <select id="selectByProblemdetail" resultType="map">
+        SELECT p.*,s.*,y.types,(SELECT staff_name FROM staff WHERE sys_staff_id=p.sys_staff_id) AS launchName,
+        (SELECT staff_name FROM staff WHERE sys_staff_id=p.accept_id) AS acceptName
+        FROM problem p,staff f,section s,problemtype y ,problemdetail pd WHERE
+        p.sys_staff_id=f.sys_staff_id and f.sys_section_id=s.sys_section_id
+        AND p.problem_type=y.id and y.id=pd.type
+        <if test="typeKey != null and typeKey != ''">
+            AND pd.probleDetail like CONCAT('%',#{typeKey},'%')
+        </if>
+        <if test="problemStrat != null and problemStrat != ''">
+            AND p.problem_state=#{problemStrat}
+        </if>
+        <if test="beginTime != null and beginTime != ''">AND problem_findtime <![CDATA[>=]]>
+            #{beginTime}
+        </if>
+        <if test="endTime != null and endTime != ''">AND problem_findtime <![CDATA[<=]]>
+            #{endTime}
+        </if>
+        and problem_check='通过'
+        GROUP BY p.problem_id
+    </select>
+    <delete id="deleteByProblemid">
+        delete from problem
+        where problem_id in
+        (
+        <foreach collection="array" separator="," item="problemId">
+            #{problemId}
+        </foreach>
+        )
+    </delete>
+</mapper>

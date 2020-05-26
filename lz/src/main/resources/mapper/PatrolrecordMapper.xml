@@ -1,0 +1,629 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zygh.lz.mapper.PatrolrecordMapper">
+    <resultMap id="BaseResultMap" type="com.zygh.lz.admin.Patrolrecord">
+        <id column="sys_patrol_record_id" property="sysPatrolRecordId" jdbcType="INTEGER"/>
+        <result column="sys_staff_id" property="sysStaffId" jdbcType="INTEGER"/>
+        <result column="patrol_record_begintime" property="patrolRecordBegintime" jdbcType="TIMESTAMP"/>
+        <result column="patrol_record_endtime" property="patrolRecordEndtime" jdbcType="TIMESTAMP"/>
+        <result column="patrol_record_picture" property="patrolRecordPicture" jdbcType="VARCHAR"/>
+        <result column="patrol_record_video" property="patrolRecordVideo" jdbcType="VARCHAR"/>
+        <result column="patrol_record_gps" property="patrolRecordGps" jdbcType="VARCHAR"/>
+        <result column="patrol_record_detail" property="patrolRecordDetail" jdbcType="VARCHAR"/>
+        <result column="roadName" property="roadName" jdbcType="VARCHAR"/>
+
+        <result column="strength" property="strength" jdbcType="VARCHAR"/>
+        <result column="change_shifts" property="changeShifts" jdbcType="VARCHAR"/>
+        <result column="staff_name" property="staffName" jdbcType="VARCHAR"/>
+        <result column="staff_post" property="staffPost" jdbcType="VARCHAR"/>
+        <result column="staff_tel" property="staffTel" jdbcType="VARCHAR"/>
+        <result column="sys_gps_id" property="sysGpsId" jdbcType="INTEGER"/>
+        <result column="sys_section_id" property="sysSectionId" jdbcType="INTEGER"/>
+        <result column="sys_role_id" property="sysRoleId" jdbcType="INTEGER"/>
+        <result column="staff_sex" property="staffSex" jdbcType="VARCHAR"/>
+        <result column="staff_photo" property="staffPhoto" jdbcType="VARCHAR"/>
+        <result column="staff_password" property="staffPassword" jdbcType="VARCHAR"/>
+        <result column="staff_hierarchy" property="staffHierarchy" jdbcType="VARCHAR"/>
+        <result column="staff_num" property="staffNum" jdbcType="VARCHAR"/>
+        <result column="staff_idcard" property="staffIdcard" jdbcType="VARCHAR"/>
+        <result column="role_name" property="roleName" jdbcType="VARCHAR"/>
+        <result column="section_pid" property="sectionPid" jdbcType="INTEGER"/>
+        <result column="stafff_pid" property="stafffPid" jdbcType="INTEGER"/>
+
+        <result column="section_name" property="sectionName" jdbcType="VARCHAR"/>
+        <result column="section_allname" property="sectionAllname" jdbcType="VARCHAR"/>
+        <result column="section_position" property="sectionPosition" jdbcType="VARCHAR"/>
+        <result column="section_tel" property="sectionTel" jdbcType="VARCHAR"/>
+        <result column="section_person" property="sectionPerson" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <resultMap id="BaseResultMap1" type="com.zygh.lz.admin.Patrolrecord">
+        <id column="sys_patrol_record_id" property="sysPatrolRecordId" jdbcType="INTEGER"/>
+        <result column="sys_staff_id" property="sysStaffId" jdbcType="INTEGER"/>
+        <result column="patrol_record_begintime" property="patrolRecordBegintime" jdbcType="TIMESTAMP"/>
+        <result column="patrol_record_endtime" property="patrolRecordEndtime" jdbcType="TIMESTAMP"/>
+        <result column="patrol_record_picture" property="patrolRecordPicture" jdbcType="VARCHAR"/>
+        <result column="patrol_record_video" property="patrolRecordVideo" jdbcType="VARCHAR"/>
+        <result column="patrol_record_gps" property="patrolRecordGps" jdbcType="VARCHAR"/>
+        <result column="patrol_record_detail" property="patrolRecordDetail" jdbcType="VARCHAR"/>
+        <result column="roadName" property="roadName" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+    sys_patrol_record_id, sys_staff_id, patrol_record_begintime, patrol_record_endtime,
+    patrol_record_picture, patrol_record_video, patrol_record_gps, patrol_record_detail,
+    roadName
+  </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from patrolrecord
+        where sys_patrol_record_id = #{sysPatrolRecordId,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from patrolrecord
+    where sys_patrol_record_id = #{sysPatrolRecordId,jdbcType=INTEGER}
+  </delete>
+    <insert id="insert" parameterType="com.zygh.lz.admin.Patrolrecord">
+    insert into patrolrecord (sys_patrol_record_id, sys_staff_id, patrol_record_begintime,
+      patrol_record_endtime, patrol_record_picture,
+      patrol_record_video, patrol_record_gps, patrol_record_detail,
+      roadName)
+    values (#{sysPatrolRecordId,jdbcType=INTEGER}, #{sysStaffId,jdbcType=INTEGER}, #{patrolRecordBegintime,jdbcType=TIMESTAMP},
+      #{patrolRecordEndtime,jdbcType=TIMESTAMP}, #{patrolRecordPicture,jdbcType=VARCHAR},
+      #{patrolRecordVideo,jdbcType=VARCHAR}, #{patrolRecordGps,jdbcType=VARCHAR}, #{patrolRecordDetail,jdbcType=VARCHAR},
+      #{roadName,jdbcType=VARCHAR})
+  </insert>
+    <insert id="insertSelective" parameterType="com.zygh.lz.admin.Patrolrecord">
+        insert into patrolrecord
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="sysPatrolRecordId != null">
+                sys_patrol_record_id,
+            </if>
+            <if test="sysStaffId != null">
+                sys_staff_id,
+            </if>
+            <if test="patrolRecordBegintime != null">
+                patrol_record_begintime,
+            </if>
+            <if test="patrolRecordEndtime != null">
+                patrol_record_endtime,
+            </if>
+            <if test="patrolRecordPicture != null">
+                patrol_record_picture,
+            </if>
+            <if test="patrolRecordVideo != null">
+                patrol_record_video,
+            </if>
+            <if test="patrolRecordGps != null">
+                patrol_record_gps,
+            </if>
+            <if test="patrolRecordDetail != null">
+                patrol_record_detail,
+            </if>
+            <if test="roadName != null">
+                roadName,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="sysPatrolRecordId != null">
+                #{sysPatrolRecordId,jdbcType=INTEGER},
+            </if>
+            <if test="sysStaffId != null">
+                #{sysStaffId,jdbcType=INTEGER},
+            </if>
+            <if test="patrolRecordBegintime != null">
+                #{patrolRecordBegintime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="patrolRecordEndtime != null">
+                #{patrolRecordEndtime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="patrolRecordPicture != null">
+                #{patrolRecordPicture,jdbcType=VARCHAR},
+            </if>
+            <if test="patrolRecordVideo != null">
+                #{patrolRecordVideo,jdbcType=VARCHAR},
+            </if>
+            <if test="patrolRecordGps != null">
+                #{patrolRecordGps,jdbcType=VARCHAR},
+            </if>
+            <if test="patrolRecordDetail != null">
+                #{patrolRecordDetail,jdbcType=VARCHAR},
+            </if>
+            <if test="roadName != null">
+                #{roadName,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.zygh.lz.admin.Patrolrecord">
+        update patrolrecord
+        <set>
+
+            <if test="sysStaffId != null">
+                sys_staff_id = #{sysStaffId,jdbcType=INTEGER},
+            </if>
+            <if test="patrolRecordBegintime != null">
+                patrol_record_begintime = #{patrolRecordBegintime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="patrolRecordEndtime != null">
+                patrol_record_endtime = #{patrolRecordEndtime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="patrolRecordPicture != null">
+                patrol_record_picture = #{patrolRecordPicture,jdbcType=VARCHAR},
+            </if>
+            <if test="patrolRecordVideo != null">
+                patrol_record_video = #{patrolRecordVideo,jdbcType=VARCHAR},
+            </if>
+            <if test="patrolRecordGps != null">
+                patrol_record_gps = #{patrolRecordGps,jdbcType=VARCHAR},
+            </if>
+            <if test="patrolRecordDetail != null">
+                patrol_record_detail = #{patrolRecordDetail,jdbcType=VARCHAR},
+            </if>
+            <if test="roadName != null">
+                roadName = #{roadName,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where sys_patrol_record_id = #{sysPatrolRecordId,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.zygh.lz.admin.Patrolrecord">
+    update patrolrecord
+    set sys_staff_id = #{sysStaffId,jdbcType=INTEGER},
+      patrol_record_begintime = #{patrolRecordBegintime,jdbcType=TIMESTAMP},
+      patrol_record_endtime = #{patrolRecordEndtime,jdbcType=TIMESTAMP},
+      patrol_record_picture = #{patrolRecordPicture,jdbcType=VARCHAR},
+      patrol_record_video = #{patrolRecordVideo,jdbcType=VARCHAR},
+      patrol_record_gps = #{patrolRecordGps,jdbcType=VARCHAR},
+      patrol_record_detail = #{patrolRecordDetail,jdbcType=VARCHAR},
+      roadName = #{roadName,jdbcType=VARCHAR}
+    where sys_patrol_record_id = #{sysPatrolRecordId,jdbcType=INTEGER}
+  </update>
+
+    <!--根据道路名称、部门查询所有巡查信息-->
+    <select id="selectByRoadtype" resultMap="BaseResultMap">
+        SELECT DISTINCT pr.sys_patrol_record_id,pr.*,s.*,sf.*
+        FROM section s,patrolrecord pr,staff sf,role
+        WHERE sf.sys_section_id=s.sys_section_id AND pr.sys_staff_id=sf.sys_staff_id AND role.sys_role_id=sf.sys_role_id
+        <if test="sysSectionId != null and sysSectionId != ''">
+            AND sf.sys_section_id = #{sysSectionId}
+        </if>
+        <if test="sectionPid != null and sectionPid != ''">
+            AND s.section_pid = #{sectionPid}
+        </if>
+        <if test="beginTime != null and beginTime != ''">
+            AND pr.patrol_record_begintime> #{beginTime}
+        </if>
+        <if test="endTime != null and endTime != ''">
+            AND pr.patrol_record_endtime &lt; #{endTime}
+        </if>
+        order by patrol_record_begintime DESC
+    </select>
+    <!--查询所有巡查记录-->
+    <select id="selectAllPatrolrecord" resultType="map">
+    SELECT * FROM patrolrecord p,staff f,section s WHERE p.sys_staff_id=f.sys_staff_id
+    and f.sys_section_id=s.sys_section_id
+    ORDER BY patrol_record_begintime DESC
+  </select>
+    <!--查询所有巡查记录的视频-->
+    <select id="selectVideo" resultMap="BaseResultMap">
+        SELECT * FROM patrolrecord
+        WHERE patrol_record_video!=""
+        ORDER BY patrol_record_begintime DESC
+    </select>
+    <!--根据开始时间，结束时间、道路名称查询巡查记录-->
+    <select id="selectDim" resultType="map">
+        SELECT * FROM patrolrecord p,staff
+        s,road r WHERE p.sys_staff_id=s.sys_staff_id
+
+        <where>
+            <if test="roadName!=null and roadName!='' ">
+                and p.roadName like CONCAT('%',#{roadName},'%')
+            </if>
+            <if test="beginTime != null and beginTime != ''">AND patrol_record_begintime <![CDATA[>=]]>
+                #{beginTime}
+            </if>
+            <if test="endTime != null and endTime != ''">AND patrol_record_begintime <![CDATA[<=]]>
+                #{endTime}
+            </if>
+        </where>
+        ORDER BY patrol_record_begintime DESC
+    </select>
+    <!--根据道路、所属大队查询所有二级路长-->
+    <select id="selectByhierarchy" resultType="map">
+    SELECT *
+    FROM section s,patrolrecord pr,staff sf
+    WHERE sf.sys_section_id=s.sys_section_id AND pr.sys_staff_id=sf.sys_staff_id
+    sf.sys_section_id=#{sysSectionId} AND sf.staff_hierarchy='二级路长'
+    order by patrol_record_begintime DESC
+</select>
+    <!--根据登陆人id查询个人巡查信息-->
+    <select id="selectBysysStaffId" resultMap="BaseResultMap">
+        SELECT DISTINCT pr.sys_patrol_record_id,pr.*,s.*,sf.*
+        FROM section s,patrolrecord pr,staff sf,role
+        WHERE sf.sys_section_id=s.sys_section_id AND pr.sys_staff_id=sf.sys_staff_id AND role.sys_role_id=sf.sys_role_id
+        <if test="staffid != null and staffid != ''">
+            AND sf.sys_staff_id=#{staffid}
+        </if>
+        <if test="beginTime != null and beginTime != ''">
+            AND pr.patrol_record_begintime> #{beginTime}
+        </if>
+        <if test="endTime != null and endTime != ''">
+            AND pr.patrol_record_endtime &lt; #{endTime}
+        </if>
+        order by patrol_record_begintime DESC
+    </select>
+    <!--根据时间查询个人的巡查记录-->
+    <select id="selectByStaff" resultType="map">
+        SELECT *
+        FROM section s,patrolrecord pr,staff sf
+        <where>
+            sf.sys_section_id=s.sys_section_id AND pr.sys_staff_id=sf.sys_staff_id
+            AND sf.sys_staff_id=#{SysStaffId}
+            <if test="beginTime != null and beginTime != ''">
+                AND patrol_record_begintime <![CDATA[>=]]> #{beginTime}
+            </if>
+            <if test="endTime != null and endTime != ''">AND patrol_record_begintime <![CDATA[<=]]>
+                #{endTime}
+            </if>
+        </where>
+        order by patrol_record_begintime DESC
+    </select>
+
+    <!--查询各个大队的巡查记录个数-->
+    <select id="selectRecordNum" resultType="map">
+        SELECT section_name,COUNT(*) FROM patrolrecord AS p,staff AS s,section
+        WHERE p.`sys_staff_id` =s.`sys_staff_id`
+        AND s.`sys_section_id` =section.`sys_section_id`
+        <if test="startDate != null and endDate != null">
+            AND `patrol_record_begintime` BETWEEN #{startDate} AND #{endDate}
+        </if>
+        GROUP BY section.section_name
+    </select>
+    <!--登录用户负责道路列表-->
+    <select id="selectByStaffId" resultType="map">
+      SELECT d.suty_road,r.*
+      FROM duty d,road r
+      WHERE d.sys_road_id=r.sys_road_id
+      and onestaff_id=#{StaffId}
+    </select>
+    <select id="selectBytwostaffId" resultType="map">
+      SELECT d.suty_road,r.*
+      FROM duty d,road r
+      WHERE d.sys_road_id=r.sys_road_id
+      and twostaff_id=#{twostaffId}
+    </select>
+    <!--查询最后一条巡查记录-->
+    <select id="selectBylast" resultMap="BaseResultMap">
+      SELECT * FROM patrolrecord order by sys_patrol_record_id DESC limit 1;
+    </select>
+    <!--批量删除-->
+    <delete id="delectPatrolrecordById">
+        delete from patrolrecord
+        where sys_patrol_record_id in
+        (
+        <foreach collection="array" separator="," item="sysPatrolRecordId">
+            #{sysPatrolRecordId}
+        </foreach>
+        )
+    </delete>
+    <!--根据id查询该人的巡查记录-->
+    <select id="selectAllPatrolrecordById" resultType="map">
+      select * FROM patrolrecord p WHERE p.sys_staff_id=#{id}
+      order by sys_patrol_record_id desc
+    </select>
+    <!--在线不在线加上判断结束为空-->
+    <select id="selectPatrolrecordByStaffId" resultMap="BaseResultMap">
+        SELECT * FROM patrolrecord p,staff f WHERE p.sys_staff_id=f.sys_staff_id AND TO_DAYS(p.patrol_record_begintime) = TO_DAYS(NOW())
+        AND p.sys_staff_id =#{staffid} AND p.patrol_record_endtime is null GROUP BY p.sys_staff_id
+    </select>
+
+    <!--统计固定岗/高峰岗实到在线人数-->
+    <select id="countGdorGfSDsum" resultType="java.lang.Integer" parameterType="java.lang.String">
+        select p.sys_staff_id
+        from patrolrecord p,staff s,xarea x,xrelation xl
+        where to_days(p.patrol_record_begintime) = to_days(now())
+        and x.station = #{station}
+        <if test="battalion != null and battalion != ''" >
+            and x.battalion = #{battalion}
+        </if>
+
+        and  p.sys_staff_id = s.sys_staff_id
+        and s.sys_staff_id = xl.staff_id
+        and xl.xarea_id = x.id
+        and p.patrol_record_endtime is null GROUP BY p.sys_staff_id
+
+    </select>
+
+    <!--统计夜巡实到在线人数-->
+    <select id="countYxSDsum" resultType="java.lang.Integer" parameterType="java.lang.String">
+        select p.sys_staff_id
+        from patrolrecord p,staff s,xarea x,xrelation xl
+        where to_days(p.patrol_record_begintime) = to_days(now())
+        <if test="battalion != null and battalion != ''" >
+            and x.battalion = #{battalion}
+        </if>
+        and  p.sys_staff_id = s.sys_staff_id
+        and s.sys_staff_id = xl.staff_id
+        and xl.xarea_id = x.id and x.conment = '3'
+        and p.patrol_record_endtime is null GROUP BY p.sys_staff_id
+    </select>
+
+
+    <!--统计铁骑实到在线人数-->
+    <select id="countTqSDsum" resultType="java.lang.Integer" parameterType="java.lang.String">
+        select p.sys_staff_id
+        from patrolrecord p,staff s,xarea x,xrelation xl
+        where to_days(p.patrol_record_begintime) = to_days(now())
+        <if test="battalion != null and battalion != ''" >
+            and x.battalion = #{battalion}
+        </if>
+        and p.sys_staff_id = s.sys_staff_id
+        and s.sys_staff_id = xl.staff_id
+        and xl.xarea_id = x.id and x.conment = '2'
+        and p.patrol_record_endtime is null GROUP BY p.sys_staff_id
+    </select>
+
+    <!--统计网格实到在线人数-->
+    <select id="countWgSDsum" resultType="java.lang.Integer" parameterType="java.lang.String">
+        select p.sys_staff_id
+        from patrolrecord p,staff s,xarea x,xrelation xl
+        where to_days(p.patrol_record_begintime) = to_days(now())
+        <if test="battalion != null and battalion != ''" >
+            and x.battalion = #{battalion}
+        </if>
+        and p.sys_staff_id = s.sys_staff_id
+        and s.sys_staff_id = xl.staff_id and xl.xarea_id = x.id
+        and (x.gridding like '%网格%' or x.type = '面') and x.gridding is not null and x.gridding not like '%级网格%' and conment != '2' and conment != '3' and station = '区域' and p.patrol_record_endtime is null GROUP BY p.sys_staff_id
+    </select>
+
+    <!--统计日常勤务实到在线人数-->
+    <select id="countRcSDsum" resultType="java.lang.Integer">
+        select p.sys_staff_id from patrolrecord p,staff s,xarea x,xrelation xl
+        where to_days(p.patrol_record_begintime) = to_days(now())
+        and  p.sys_staff_id = s.sys_staff_id
+        and s.sys_staff_id = xl.staff_id
+        and xl.xarea_id = x.id
+        and x.conment != '3'
+        <if test="battalion != null and battalion != ''" >
+            and x.battalion = #{battalion}
+        </if>
+        and ((((x.gridding like '%网格%' or x.type = '面') and x.gridding is not null and x.gridding not like '%级网格%') or x.station = '高速岗' or conment = '2' or x.station = '固定岗' or conment = '4')
+        or (station != '固定岗' and station != '高峰岗' and station != '高速岗' and conment != '2' and conment != '4' and station != '快速岗' and station != '区域'))
+        and p.patrol_record_endtime is null GROUP BY p.sys_staff_id
+    </select>
+    <!--统计重点岗实到在线人数-->
+    <select id="countZdSDsum" resultType="java.lang.Integer" parameterType="java.lang.String">
+        select p.sys_staff_id
+        from patrolrecord p,staff s,xarea x,xrelation xl
+        where to_days(p.patrol_record_begintime) = to_days(now())
+        <if test="battalion != null and battalion != ''" >
+            and x.battalion = #{battalion}
+        </if>
+        and p.sys_staff_id = s.sys_staff_id
+        and s.sys_staff_id = xl.staff_id and xl.xarea_id = x.id
+        and x.conment = '4' and p.patrol_record_endtime is null GROUP BY p.sys_staff_id
+    </select>
+
+    <!--统计其他岗实到在线人数-->
+    <select id="countQtSDsum" resultType="java.lang.Integer" parameterType="java.lang.String">
+        select p.sys_staff_id
+        from patrolrecord p,staff s,xarea x,xrelation xl
+        where to_days(p.patrol_record_begintime) = to_days(now())
+        and p.sys_staff_id = s.sys_staff_id
+        and s.sys_staff_id = xl.staff_id and xl.xarea_id = x.id
+        <if test="battalion != null and battalion != ''" >
+            and x.battalion = #{battalion}
+        </if>
+        and x.station != '固定岗' and x.station != '高峰岗'
+        and x.station != '高速岗' and x.conment != '2' and x.conment != '4'
+        and x.station != '快速岗' and x.station != '区域'
+        and p.patrol_record_endtime is null GROUP BY p.sys_staff_id
+
+    </select>
+
+    <!--查询巡查轨迹-->
+    <select id="selectrecordByid" resultMap="BaseResultMap">
+      SELECT * FROM patrolrecord p,staff f,section s
+        WHERE f.sys_section_id=s.sys_section_id and f.sys_staff_id=p.sys_staff_id
+        and to_days(p.patrol_record_begintime) = to_days(now())
+       AND p.patrol_record_gps is NOT NULL
+        AND p.sys_staff_id=#{id}
+        ORDER BY p.patrol_record_begintime DESC LIMIT 1
+    </select>
+
+
+    <!--统计日常勤务实到在线人数-->
+    <select id="countZDRcSDsum" resultType="java.lang.Integer" parameterType="java.lang.String">
+        select p.sys_staff_id from patrolrecord p,staff s,xarea x,xrelation xl
+        where to_days(p.patrol_record_begintime) = to_days(now())
+        and x.battalion = #{battalion}
+        and x.detachment = #{detachment}
+        and  p.sys_staff_id = s.sys_staff_id
+        and s.sys_staff_id = xl.staff_id
+        and xl.xarea_id = x.id
+        and s.stafftype=#{stafftype}
+        and ((((x.gridding like '%网格%' or x.type = '面') and x.gridding is not null and x.gridding not like '%级网格%') or x.station = '高速岗' or x.conment = '2' or x.station = '固定岗' or x.conment = '4'
+        <if test="battalion != null and battalion != ''" >
+            or x.station = #{station}
+        </if>)
+        or (station != '固定岗' and station != '高峰岗' and station != '高速岗' and conment != '2' and conment != '4' and station != '快速岗' and station != '区域'))
+        and p.patrol_record_endtime is null GROUP BY p.sys_staff_id
+    </select>
+
+    <!--统计各大队中队夜巡实到在线人数-->
+    <select id="countZDYxSDsum" resultType="java.lang.Integer" parameterType="java.lang.String">
+        select p.sys_staff_id from patrolrecord p,staff s,xarea x,xrelation xl
+        where to_days(p.patrol_record_begintime) = to_days(now())
+        and x.battalion = #{battalion}
+        and x.detachment = #{detachment}
+        and s.stafftype=#{stafftype}
+        and  p.sys_staff_id = s.sys_staff_id
+        and s.sys_staff_id = xl.staff_id
+        and xl.xarea_id = x.id
+        and x.conment = '3'
+        and p.patrol_record_endtime is null GROUP BY p.sys_staff_id
+    </select>
+
+    <select id="countYxSD" resultType="java.lang.Integer" parameterType="java.lang.String">
+        select p.sys_staff_id
+        from patrolrecord p,staff s,xarea x,xrelation xl
+        where to_days(p.patrol_record_begintime) = to_days(now())
+        <if test="battalion != null and battalion != ''" >
+            and x.battalion = #{battalion}
+        </if>
+        and  p.sys_staff_id = s.sys_staff_id
+        and s.sys_staff_id = xl.staff_id
+        and xl.xarea_id = x.id
+        and x.conment = '3'
+        and (x.detachment like '%夜巡%' or x.gridding like '%夜巡%')
+        and p.patrol_record_endtime is null
+        GROUP BY p.sys_staff_id
+    </select>
+
+    <!--统计高峰岗/快速岗实到在线人数-->
+    <select id="countGsorKsSDsum" resultType="java.lang.Integer" parameterType="java.lang.String">
+        select p.sys_staff_id
+        from patrolrecord p,staff s,xarea x,xrelation xl
+        where to_days(p.patrol_record_begintime) = to_days(now())
+        and x.station = #{station}
+        <if test="battalion != null and battalion != ''" >
+            and x.battalion = #{battalion}
+        </if>
+        <if test="conment == null and conment == ''" >
+            and x.conment != 3
+        </if>
+        <if test="conment != null and conment != ''" >
+            and x.conment = #{conment}
+        </if>
+        and  p.sys_staff_id = s.sys_staff_id
+        and s.sys_staff_id = xl.staff_id
+        and xl.xarea_id = x.id
+        and p.patrol_record_endtime is null GROUP BY p.sys_staff_id
+    </select>
+
+    <!--修改单独-->
+    <update id="updateByPrimaryKeySelectives" parameterType="com.zygh.lz.admin.Patrolrecord">
+        update patrolrecord
+        <set>
+            <if test="patrolRecordEndtime == null">
+                patrol_record_endtime = null,
+            </if>
+            <if test="sysStaffId != null">
+                sys_staff_id = #{sysStaffId,jdbcType=INTEGER},
+            </if>
+            <if test="patrolRecordBegintime != null">
+                patrol_record_begintime = #{patrolRecordBegintime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="patrolRecordEndtime != null">
+                patrol_record_endtime = #{patrolRecordEndtime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="patrolRecordPicture != null">
+                patrol_record_picture = #{patrolRecordPicture,jdbcType=VARCHAR},
+            </if>
+            <if test="patrolRecordVideo != null">
+                patrol_record_video = #{patrolRecordVideo,jdbcType=VARCHAR},
+            </if>
+            <if test="patrolRecordGps != null">
+                patrol_record_gps = #{patrolRecordGps,jdbcType=VARCHAR},
+            </if>
+            <if test="patrolRecordDetail != null">
+                patrol_record_detail = #{patrolRecordDetail,jdbcType=VARCHAR},
+            </if>
+            <if test="roadName != null">
+                roadName = #{roadName,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where sys_patrol_record_id = #{sysPatrolRecordId,jdbcType=INTEGER}
+    </update>
+
+    <!--查询在线人ID-->
+    <select id="findNowId" resultType="java.lang.Integer">
+        SELECT sys_staff_id FROM patrolrecord where (patrol_record_endtime is null or patrol_record_endtime = '') and (sys_staff_id != '' or sys_staff_id is not null) GROUP BY sys_staff_id
+    </select>
+
+    <select id="findNowGps" resultType="java.util.HashMap" parameterType="java.lang.Integer">
+        SELECT g.*,f.*,x.* FROM gps g,staff f,section s,xarea x,xrelation xl
+        where g.sys_staff_id=f.sys_staff_id
+        and f.sys_section_id=s.sys_section_id
+				and f.sys_staff_id = xl.staff_id
+				and xl.xarea_id = x.id
+        and g.sys_staff_id = #{id}
+        ORDER BY gps_time DESC LIMIT 1
+    </select>
+
+    <!--夜巡实到在线人ID-->
+    <select id="findYXGPS" resultType="java.lang.Integer">
+        select p.sys_staff_id
+        from patrolrecord p,staff s,xarea x,xrelation xl
+        where to_days(p.patrol_record_begintime) = to_days(#{time})
+        <if test="battalion != null and battalion != ''" >
+            and x.battalion = #{battalion}
+        </if>
+        and  p.sys_staff_id = s.sys_staff_id
+        and s.sys_staff_id = xl.staff_id
+        and xl.xarea_id = x.id and x.conment = '3'
+        and p.patrol_record_endtime is null GROUP BY p.sys_staff_id
+    </select>
+
+    <!--高峰实到在线人ID-->
+    <select id="findGFGPS" resultType="java.lang.Integer">
+        select p.sys_staff_id
+        from patrolrecord p,staff s,xarea x,xrelation xl
+        where to_days(p.patrol_record_begintime) = to_days(#{time})
+        and x.station = #{station}
+        <if test="battalion != null and battalion != ''" >
+            and x.battalion = #{battalion}
+        </if>
+        and  p.sys_staff_id = s.sys_staff_id
+        and s.sys_staff_id = xl.staff_id
+        and xl.xarea_id = x.id
+        and p.patrol_record_endtime is null GROUP BY p.sys_staff_id
+    </select>
+
+    <!--日常勤务实到在线人ID-->
+    <select id="findRcGPS" resultType="java.lang.Integer">
+        select p.sys_staff_id from patrolrecord p,staff s,xarea x,xrelation xl
+        where to_days(p.patrol_record_begintime) = to_days(#{time})
+        and  p.sys_staff_id = s.sys_staff_id
+        and s.sys_staff_id = xl.staff_id
+        and xl.xarea_id = x.id
+        and x.conment != '3'
+        <if test="battalion != null and battalion != ''" >
+            and x.battalion = #{battalion}
+        </if>
+        and ((((x.gridding like '%网格%' or x.type = '面') and x.gridding is not null and x.gridding not like '%级网格%') or x.station = '高速岗' or conment = '2' or x.station = '固定岗' or conment = '4')
+        or (station != '固定岗' and station != '高峰岗' and station != '高速岗' and conment != '2' and conment != '4' and station != '快速岗' and station != '区域'))
+        and p.patrol_record_endtime is null GROUP BY p.sys_staff_id
+    </select>
+
+    <select id="findStaffGps" resultType="java.util.HashMap" parameterType="java.lang.Integer">
+        SELECT * FROM gps g,staff f,section s
+        where g.sys_staff_id=f.sys_staff_id
+        and f.sys_section_id=s.sys_section_id
+        and to_days(g.gps_time) = to_days(#{time})
+        and g.sys_staff_id = #{id}
+        ORDER BY gps_time DESC LIMIT 1
+    </select>
+
+    <select id="findSectionId" resultType="java.util.HashMap" parameterType="java.lang.String">
+        select st.section_name as name,st.sys_section_id as id from xarea x,section st
+        where x.battalion = st.section_name
+        <if test="sectionName != null and sectionName != ''" >
+            and st.section_name = #{sectionName}
+        </if>
+        GROUP BY st.section_name
+    </select>
+    <select id="selectinfoByid" resultType="java.util.HashMap">
+        SELECT * from patrolrecord  WHERE sys_staff_id=#{id} AND TO_DAYS(patrol_record_begintime) = TO_DAYS(NOW())
+    </select>
+    <select id="findByType" resultType="java.util.HashMap">
+        select gps,centre from xarea where type = '面' and centre is not null and centre != '' and gps != '' and gps is not null
+    </select>
+
+    <!--应部署GPS-->
+    <select id="findTypeGps" resultType="java.util.HashMap" parameterType="java.lang.String">
+        select x.gps,x.centre,xl.staff_id from xarea x,xrelation xl where x.type = #{type}
+        and (x.gps != '' or x.gps!=null) and x.gps is not null and xl.xarea_id = x.id GROUP BY xl.staff_id
+    </select>
+
+</mapper>

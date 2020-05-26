@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zygh.lz.mapper.NoticeMapper" >
+  <!--<cache type="com.zygh.lz.cache.MybatisRedisCache"/>-->
+  <resultMap id="BaseResultMap" type="com.zygh.lz.admin.Notice" >
+    <id column="sys_notice_id" property="sysNoticeId" jdbcType="INTEGER" />
+    <result column="notice_content" property="noticeContent" jdbcType="VARCHAR" />
+    <result column="notice_url" property="noticeUrl" jdbcType="VARCHAR" />
+    <result column="notice_send" property="noticeSend" jdbcType="INTEGER" />
+    <result column="notice_accept" property="noticeAccept" jdbcType="VARCHAR" />
+    <result column="notice_title" property="noticeTitle" jdbcType="VARCHAR" />
+    <result column="notice_time" property="noticeTime" jdbcType="TIMESTAMP" />
+    <result column="notice_detail" property="noticeDetail" jdbcType="VARCHAR" />
+    <result column="noticeSectionName" property="noticeSectionName" jdbcType="VARCHAR" />
+    <result column="staffName" property="staffName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    sys_notice_id, notice_content, notice_url, notice_send, notice_accept, notice_title, 
+    notice_time, notice_detail
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from notice
+    where sys_notice_id = #{sysNoticeId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from notice
+    where sys_notice_id = #{sysNoticeId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zygh.lz.admin.Notice" >
+    insert into notice (sys_notice_id, notice_content, notice_url, 
+      notice_send, notice_accept, notice_title, 
+      notice_time, notice_detail)
+    values (#{sysNoticeId,jdbcType=INTEGER}, #{noticeContent,jdbcType=VARCHAR}, #{noticeUrl,jdbcType=VARCHAR}, 
+      #{noticeSend,jdbcType=INTEGER}, #{noticeAccept,jdbcType=VARCHAR}, #{noticeTitle,jdbcType=VARCHAR}, 
+      #{noticeTime,jdbcType=TIMESTAMP}, #{noticeDetail,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zygh.lz.admin.Notice" >
+    insert into notice
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="sysNoticeId != null" >
+        sys_notice_id,
+      </if>
+      <if test="noticeContent != null" >
+        notice_content,
+      </if>
+      <if test="noticeUrl != null" >
+        notice_url,
+      </if>
+      <if test="noticeSend != null" >
+        notice_send,
+      </if>
+      <if test="noticeAccept != null" >
+        notice_accept,
+      </if>
+      <if test="noticeTitle != null" >
+        notice_title,
+      </if>
+      <if test="noticeTime != null" >
+        notice_time,
+      </if>
+      <if test="noticeDetail != null" >
+        notice_detail,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="sysNoticeId != null" >
+        #{sysNoticeId,jdbcType=INTEGER},
+      </if>
+      <if test="noticeContent != null" >
+        #{noticeContent,jdbcType=VARCHAR},
+      </if>
+      <if test="noticeUrl != null" >
+        #{noticeUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="noticeSend != null" >
+        #{noticeSend,jdbcType=INTEGER},
+      </if>
+      <if test="noticeAccept != null" >
+        #{noticeAccept,jdbcType=VARCHAR},
+      </if>
+      <if test="noticeTitle != null" >
+        #{noticeTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="noticeTime != null" >
+        #{noticeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="noticeDetail != null" >
+        #{noticeDetail,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zygh.lz.admin.Notice" >
+    update notice
+    <set >
+      <if test="noticeContent != null" >
+        notice_content = #{noticeContent,jdbcType=VARCHAR},
+      </if>
+      <if test="noticeUrl != null" >
+        notice_url = #{noticeUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="noticeSend != null" >
+        notice_send = #{noticeSend,jdbcType=INTEGER},
+      </if>
+      <if test="noticeAccept != null" >
+        notice_accept = #{noticeAccept,jdbcType=VARCHAR},
+      </if>
+      <if test="noticeTitle != null" >
+        notice_title = #{noticeTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="noticeTime != null" >
+        notice_time = #{noticeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="noticeDetail != null" >
+        notice_detail = #{noticeDetail,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where sys_notice_id = #{sysNoticeId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zygh.lz.admin.Notice" >
+    update notice
+    set notice_content = #{noticeContent,jdbcType=VARCHAR},
+      notice_url = #{noticeUrl,jdbcType=VARCHAR},
+      notice_send = #{noticeSend,jdbcType=INTEGER},
+      notice_accept = #{noticeAccept,jdbcType=VARCHAR},
+      notice_title = #{noticeTitle,jdbcType=VARCHAR},
+      notice_time = #{noticeTime,jdbcType=TIMESTAMP},
+      notice_detail = #{noticeDetail,jdbcType=VARCHAR}
+    where sys_notice_id = #{sysNoticeId,jdbcType=INTEGER}
+  </update>
+  <!--查询所有通知-->
+  <select id="selectAllNotice" resultMap="BaseResultMap">
+    SELECT n.*,(SELECT f.staff_name FROM staff f WHERE f.sys_staff_id=n.notice_send) as staffName
+    FROM notice n
+    <where>
+      <if test="sectionId != null" >
+        notice_accept =#{sectionId}
+      </if>
+    </where>
+    ORDER BY notice_time DESC
+  </select>
+  <select id="selectNotrce" resultMap="BaseResultMap">
+    select n.*,(SELECT f.staff_name FROM staff f WHERE f.sys_staff_id=n.notice_send) as staffName from notice n
+  </select>
+</mapper>

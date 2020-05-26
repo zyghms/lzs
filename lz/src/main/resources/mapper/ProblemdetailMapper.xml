@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zygh.lz.mapper.ProblemdetailMapper">
+    <!--<cache type="com.zygh.lz.cache.MybatisRedisCache"/>-->
+    <resultMap id="BaseResultMap" type="com.zygh.lz.admin.Problemdetail">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="probleDetail" property="probledetail" jdbcType="VARCHAR"/>
+        <result column="repairerid" property="repairerid" jdbcType="VARCHAR"/>
+        <result column="type" property="type" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, probleDetail, repairerid, type
+  </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from problemdetail
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from problemdetail
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+    <insert id="insert" parameterType="com.zygh.lz.admin.Problemdetail">
+        <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into problemdetail (probleDetail, repairerid, type
+        )
+        values (#{probledetail,jdbcType=VARCHAR}, #{repairerid,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}
+        )
+    </insert>
+    <insert id="insertSelective" parameterType="com.zygh.lz.admin.Problemdetail">
+        <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into problemdetail
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="probledetail != null">
+                probleDetail,
+            </if>
+            <if test="repairerid != null">
+                repairerid,
+            </if>
+            <if test="type != null">
+                type,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="probledetail != null">
+                #{probledetail,jdbcType=VARCHAR},
+            </if>
+            <if test="repairerid != null">
+                #{repairerid,jdbcType=VARCHAR},
+            </if>
+            <if test="type != null">
+                #{type,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.zygh.lz.admin.Problemdetail">
+        update problemdetail
+        <set>
+            <if test="probledetail != null">
+                probleDetail = #{probledetail,jdbcType=VARCHAR},
+            </if>
+            <if test="repairerid != null">
+                repairerid = #{repairerid,jdbcType=VARCHAR},
+            </if>
+            <if test="type != null">
+                type = #{type,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.zygh.lz.admin.Problemdetail">
+    update problemdetail
+    set probleDetail = #{probledetail,jdbcType=VARCHAR},
+      repairerid = #{repairerid,jdbcType=VARCHAR},
+      type = #{type,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+    <select id="selectdetailbytype" resultMap="BaseResultMap">
+    select * FROM problemdetail WHERE probleDetail=#{type}
+  </select>
+    <select id="selectAllByProblemdetail" resultMap="BaseResultMap">
+      SELECT * FROM problemtype pt,problemdetail pd WHERE pt.id=pd.type AND pt.id=#{id}
+  </select>
+    <select id="selectAllByProblemdetails" resultMap="BaseResultMap">
+         SELECT * FROM problemdetail
+    </select>
+</mapper>

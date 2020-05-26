@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zygh.lz.mapper.XdeclareMapper" >
+  <!--<cache type="com.zygh.lz.cache.MybatisRedisCache"/>-->
+  <resultMap id="BaseResultMap" type="com.zygh.lz.admin.Xdeclare" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="appear" property="appear" jdbcType="VARCHAR" />
+    <result column="accepter" property="accepter" jdbcType="VARCHAR" />
+    <result column="document" property="document" jdbcType="VARCHAR" />
+    <result column="establishtime" property="establishtime" jdbcType="TIMESTAMP" />
+    <result column="starttime" property="starttime" jdbcType="TIMESTAMP" />
+    <result column="stoptime" property="stoptime" jdbcType="TIMESTAMP" />
+    <result column="state" property="state" jdbcType="VARCHAR" />
+    <result column="conmnet" property="conmnet" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, appear, accepter, document, establishtime, starttime, stoptime, state, conmnet
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from xdeclare
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from xdeclare
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zygh.lz.admin.Xdeclare" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into xdeclare (appear, accepter, document, 
+      establishtime, starttime, stoptime, 
+      state, conmnet)
+    values (#{appear,jdbcType=VARCHAR}, #{accepter,jdbcType=VARCHAR}, #{document,jdbcType=VARCHAR}, 
+      #{establishtime,jdbcType=TIMESTAMP}, #{starttime,jdbcType=TIMESTAMP}, #{stoptime,jdbcType=TIMESTAMP}, 
+      #{state,jdbcType=VARCHAR}, #{conmnet,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zygh.lz.admin.Xdeclare" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into xdeclare
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="appear != null" >
+        appear,
+      </if>
+      <if test="accepter != null" >
+        accepter,
+      </if>
+      <if test="document != null" >
+        document,
+      </if>
+      <if test="establishtime != null" >
+        establishtime,
+      </if>
+      <if test="starttime != null" >
+        starttime,
+      </if>
+      <if test="stoptime != null" >
+        stoptime,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+      <if test="conmnet != null" >
+        conmnet,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="appear != null" >
+        #{appear,jdbcType=VARCHAR},
+      </if>
+      <if test="accepter != null" >
+        #{accepter,jdbcType=VARCHAR},
+      </if>
+      <if test="document != null" >
+        #{document,jdbcType=VARCHAR},
+      </if>
+      <if test="establishtime != null" >
+        #{establishtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="starttime != null" >
+        #{starttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="stoptime != null" >
+        #{stoptime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="conmnet != null" >
+        #{conmnet,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zygh.lz.admin.Xdeclare" >
+    update xdeclare
+    <set >
+      <if test="appear != null" >
+        appear = #{appear,jdbcType=VARCHAR},
+      </if>
+      <if test="accepter != null" >
+        accepter = #{accepter,jdbcType=VARCHAR},
+      </if>
+      <if test="document != null" >
+        document = #{document,jdbcType=VARCHAR},
+      </if>
+      <if test="establishtime != null" >
+        establishtime = #{establishtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="starttime != null" >
+        starttime = #{starttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="stoptime != null" >
+        stoptime = #{stoptime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="conmnet != null" >
+        conmnet = #{conmnet,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zygh.lz.admin.Xdeclare" >
+    update xdeclare
+    set appear = #{appear,jdbcType=VARCHAR},
+      accepter = #{accepter,jdbcType=VARCHAR},
+      document = #{document,jdbcType=VARCHAR},
+      establishtime = #{establishtime,jdbcType=TIMESTAMP},
+      starttime = #{starttime,jdbcType=TIMESTAMP},
+      stoptime = #{stoptime,jdbcType=TIMESTAMP},
+      state = #{state,jdbcType=VARCHAR},
+      conmnet = #{conmnet,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

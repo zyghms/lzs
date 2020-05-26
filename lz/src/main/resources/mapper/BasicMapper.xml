@@ -1,0 +1,366 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zygh.lz.mapper.BasicMapper">
+    <!--<cache type="com.zygh.lz.cache.MybatisRedisCache"/>-->
+    <resultMap id="BaseResultMap" type="com.zygh.lz.admin.Basic">
+        <id column="sys_basic_id" property="sysBasicId" jdbcType="INTEGER"/>
+        <result column="basic_category" property="basicCategory" jdbcType="VARCHAR"/>
+        <result column="basic_attribute" property="basicAttribute" jdbcType="VARCHAR"/>
+        <result column="basic_ip" property="basicIp" jdbcType="VARCHAR"/>
+        <result column="basic_model" property="basicModel" jdbcType="VARCHAR"/>
+        <result column="basic_brandname" property="basicBrandname" jdbcType="VARCHAR"/>
+        <result column="basic_environment" property="basicEnvironment" jdbcType="VARCHAR"/>
+        <result column="basic_number" property="basicNumber" jdbcType="VARCHAR"/>
+        <result column="basic_date" property="basicDate" jdbcType="VARCHAR"/>
+        <result column="basic_way" property="basicWay" jdbcType="VARCHAR"/>
+        <result column="basic_num" property="basicNum" jdbcType="VARCHAR"/>
+        <result column="basic_electricity" property="basicElectricity" jdbcType="VARCHAR"/>
+        <result column="basic_datasource" property="basicDatasource" jdbcType="VARCHAR"/>
+        <result column="basic_precision" property="basicPrecision" jdbcType="VARCHAR"/>
+        <result column="basic_latitude" property="basicLatitude" jdbcType="VARCHAR"/>
+        <result column="basic_location" property="basicLocation" jdbcType="VARCHAR"/>
+        <result column="basic_use" property="basicUse" jdbcType="VARCHAR"/>
+        <result column="basic_normal" property="basicNormal" jdbcType="VARCHAR"/>
+        <result column="basic_enable" property="basicEnable" jdbcType="VARCHAR"/>
+        <result column="sys_duty_id" property="sysDutyId" jdbcType="INTEGER"/>
+        <result column="basic_account" property="basicAccount" jdbcType="VARCHAR"/>
+        <result column="basic_password" property="basicPassword" jdbcType="VARCHAR"/>
+        <association property="road" javaType="com.zygh.lz.admin.Road">
+            <id column="sys_road_id" property="sysRoadId" jdbcType="INTEGER"/>
+            <result column="sys_urban_id" property="sysUrbanId" jdbcType="INTEGER"/>
+            <result column="road_name" property="roadName" jdbcType="VARCHAR"/>
+            <result column="road_begin" property="roadBegin" jdbcType="VARCHAR"/>
+            <result column="road_over" property="roadOver" jdbcType="VARCHAR"/>
+            <result column="road_type" property="roadType" jdbcType="VARCHAR"/>
+            <result column="sys_section_id" property="sysSectionId" jdbcType="INTEGER"/>
+            <result column="urban_name" property="urbanName" jdbcType="VARCHAR"/>
+            <result column="section_name" property="sectionName" jdbcType="VARCHAR"/>
+        </association>
+        <association property="duty" javaType="com.zygh.lz.admin.Duty">
+            <id column="sys_duty_id" property="sysDutyId" jdbcType="INTEGER"/>
+            <result column="suty_road" property="sutyRoad" jdbcType="VARCHAR"/>
+            <result column="sys_section_id" property="sysSectionId" jdbcType="INTEGER"/>
+            <result column="sys_road_id" property="sysRoadId" jdbcType="INTEGER"/>
+            <result column="fenguanstaff_id" property="fenguanstaffId" jdbcType="INTEGER"/>
+            <result column="totalstaff_id" property="totalstaffId" jdbcType="INTEGER"/>
+            <result column="onestaff_id" property="onestaffId" jdbcType="INTEGER"/>
+            <result column="twostaff_id" property="twostaffId" jdbcType="INTEGER"/>
+            <result column="section_name" property="sectionName" jdbcType="VARCHAR"/>
+            <result column="road_name" property="roadName" jdbcType="VARCHAR"/>
+        </association>
+        <association property="staff" javaType="com.zygh.lz.admin.Staff">
+            <id column="sys_staff_id" property="sysStaffId" jdbcType="INTEGER"/>
+            <result column="staff_name" property="staffName" jdbcType="VARCHAR"/>
+            <result column="staff_post" property="staffPost" jdbcType="VARCHAR"/>
+            <result column="staff_tel" property="staffTel" jdbcType="VARCHAR"/>
+            <result column="sys_gps_id" property="sysGpsId" jdbcType="INTEGER"/>
+            <result column="sys_section_id" property="sysSectionId" jdbcType="INTEGER"/>
+            <result column="sys_role_id" property="sysRoleId" jdbcType="INTEGER"/>
+            <result column="staff_sex" property="staffSex" jdbcType="VARCHAR"/>
+            <result column="staff_photo" property="staffPhoto" jdbcType="VARCHAR"/>
+            <result column="staff_password" property="staffPassword" jdbcType="VARCHAR"/>
+            <result column="staff_hierarchy" property="staffHierarchy" jdbcType="VARCHAR"/>
+            <result column="staff_num" property="staffNum" jdbcType="VARCHAR"/>
+            <result column="staff_idcard" property="staffIdcard" jdbcType="VARCHAR"/>
+            <result column="role_name" property="roleName" jdbcType="VARCHAR"/>
+            <result column="section_pid" property="sectionPid" jdbcType="INTEGER"/>
+            <result column="stafff_pid" property="stafffPid" jdbcType="INTEGER"/>
+            <result column="section_name" property="sectionName" jdbcType="VARCHAR"/>
+            <result column="section_allname" property="sectionAllname" jdbcType="VARCHAR"/>
+            <result column="section_position" property="sectionPosition" jdbcType="VARCHAR"/>
+            <result column="section_tel" property="sectionTel" jdbcType="VARCHAR"/>
+            <result column="section_person" property="sectionPerson" jdbcType="VARCHAR"/>
+        </association>
+        <association property="section" javaType="com.zygh.lz.admin.Section">
+            <id column="sys_section_id" property="sysSectionId" jdbcType="INTEGER"/>
+            <result column="section_pid" property="sectionPid" jdbcType="INTEGER"/>
+            <result column="section_name" property="sectionName" jdbcType="VARCHAR"/>
+            <result column="section_allname" property="sectionAllname" jdbcType="VARCHAR"/>
+            <result column="section_position" property="sectionPosition" jdbcType="VARCHAR"/>
+            <result column="section_tel" property="sectionTel" jdbcType="VARCHAR"/>
+            <result column="section_person" property="sectionPerson" jdbcType="VARCHAR"/>
+        </association>
+    </resultMap>
+    <sql id="Base_Column_List">
+    sys_basic_id, basic_category, basic_attribute, basic_ip, basic_model, basic_brandname, 
+    basic_environment, basic_number, basic_date, basic_way, basic_num, basic_electricity, 
+    basic_datasource, basic_precision, basic_latitude, basic_location, basic_use, basic_normal, 
+    basic_enable, sys_duty_id, basic_account, basic_password
+  </sql>
+    <!--<select id="selectAllList" resultMap="BaseResultMap">
+    SELECT * FROM basic WHERE sys_duty_id LIKE "%,%"
+  </select>-->
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from basic
+        where sys_basic_id = #{sysBasicId,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from basic
+    where sys_basic_id = #{sysBasicId,jdbcType=INTEGER}
+  </delete>
+    <insert id="insert" parameterType="com.zygh.lz.admin.Basic">
+    insert into basic (sys_basic_id, basic_category, basic_attribute, 
+      basic_ip, basic_model, basic_brandname, 
+      basic_environment, basic_number, basic_date, 
+      basic_way, basic_num, basic_electricity, 
+      basic_datasource, basic_precision, basic_latitude, 
+      basic_location, basic_use, basic_normal, 
+      basic_enable, sys_duty_id, basic_account, 
+      basic_password)
+    values (#{sysBasicId,jdbcType=INTEGER}, #{basicCategory,jdbcType=VARCHAR}, #{basicAttribute,jdbcType=VARCHAR}, 
+      #{basicIp,jdbcType=VARCHAR}, #{basicModel,jdbcType=VARCHAR}, #{basicBrandname,jdbcType=VARCHAR}, 
+      #{basicEnvironment,jdbcType=VARCHAR}, #{basicNumber,jdbcType=VARCHAR}, #{basicDate,jdbcType=VARCHAR}, 
+      #{basicWay,jdbcType=VARCHAR}, #{basicNum,jdbcType=VARCHAR}, #{basicElectricity,jdbcType=VARCHAR}, 
+      #{basicDatasource,jdbcType=VARCHAR}, #{basicPrecision,jdbcType=VARCHAR}, #{basicLatitude,jdbcType=VARCHAR}, 
+      #{basicLocation,jdbcType=VARCHAR}, #{basicUse,jdbcType=VARCHAR}, #{basicNormal,jdbcType=VARCHAR}, 
+      #{basicEnable,jdbcType=VARCHAR}, #{sysDutyId,jdbcType=INTEGER}, #{basicAccount,jdbcType=VARCHAR}, 
+      #{basicPassword,jdbcType=VARCHAR})
+  </insert>
+    <insert id="insertSelective" parameterType="com.zygh.lz.admin.Basic">
+        insert into basic
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="sysBasicId != null">
+                sys_basic_id,
+            </if>
+            <if test="basicCategory != null">
+                basic_category,
+            </if>
+            <if test="basicAttribute != null">
+                basic_attribute,
+            </if>
+            <if test="basicIp != null">
+                basic_ip,
+            </if>
+            <if test="basicModel != null">
+                basic_model,
+            </if>
+            <if test="basicBrandname != null">
+                basic_brandname,
+            </if>
+            <if test="basicEnvironment != null">
+                basic_environment,
+            </if>
+            <if test="basicNumber != null">
+                basic_number,
+            </if>
+            <if test="basicDate != null">
+                basic_date,
+            </if>
+            <if test="basicWay != null">
+                basic_way,
+            </if>
+            <if test="basicNum != null">
+                basic_num,
+            </if>
+            <if test="basicElectricity != null">
+                basic_electricity,
+            </if>
+            <if test="basicDatasource != null">
+                basic_datasource,
+            </if>
+            <if test="basicPrecision != null">
+                basic_precision,
+            </if>
+            <if test="basicLatitude != null">
+                basic_latitude,
+            </if>
+            <if test="basicLocation != null">
+                basic_location,
+            </if>
+            <if test="basicUse != null">
+                basic_use,
+            </if>
+            <if test="basicNormal != null">
+                basic_normal,
+            </if>
+            <if test="basicEnable != null">
+                basic_enable,
+            </if>
+            <if test="sysDutyId != null">
+                sys_duty_id,
+            </if>
+            <if test="basicAccount != null">
+                basic_account,
+            </if>
+            <if test="basicPassword != null">
+                basic_password,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="sysBasicId != null">
+                #{sysBasicId,jdbcType=INTEGER},
+            </if>
+            <if test="basicCategory != null">
+                #{basicCategory,jdbcType=VARCHAR},
+            </if>
+            <if test="basicAttribute != null">
+                #{basicAttribute,jdbcType=VARCHAR},
+            </if>
+            <if test="basicIp != null">
+                #{basicIp,jdbcType=VARCHAR},
+            </if>
+            <if test="basicModel != null">
+                #{basicModel,jdbcType=VARCHAR},
+            </if>
+            <if test="basicBrandname != null">
+                #{basicBrandname,jdbcType=VARCHAR},
+            </if>
+            <if test="basicEnvironment != null">
+                #{basicEnvironment,jdbcType=VARCHAR},
+            </if>
+            <if test="basicNumber != null">
+                #{basicNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="basicDate != null">
+                #{basicDate,jdbcType=VARCHAR},
+            </if>
+            <if test="basicWay != null">
+                #{basicWay,jdbcType=VARCHAR},
+            </if>
+            <if test="basicNum != null">
+                #{basicNum,jdbcType=VARCHAR},
+            </if>
+            <if test="basicElectricity != null">
+                #{basicElectricity,jdbcType=VARCHAR},
+            </if>
+            <if test="basicDatasource != null">
+                #{basicDatasource,jdbcType=VARCHAR},
+            </if>
+            <if test="basicPrecision != null">
+                #{basicPrecision,jdbcType=VARCHAR},
+            </if>
+            <if test="basicLatitude != null">
+                #{basicLatitude,jdbcType=VARCHAR},
+            </if>
+            <if test="basicLocation != null">
+                #{basicLocation,jdbcType=VARCHAR},
+            </if>
+            <if test="basicUse != null">
+                #{basicUse,jdbcType=VARCHAR},
+            </if>
+            <if test="basicNormal != null">
+                #{basicNormal,jdbcType=VARCHAR},
+            </if>
+            <if test="basicEnable != null">
+                #{basicEnable,jdbcType=VARCHAR},
+            </if>
+            <if test="sysDutyId != null">
+                #{sysDutyId,jdbcType=INTEGER},
+            </if>
+            <if test="basicAccount != null">
+                #{basicAccount,jdbcType=VARCHAR},
+            </if>
+            <if test="basicPassword != null">
+                #{basicPassword,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.zygh.lz.admin.Basic">
+        update basic
+        <set>
+            <if test="basicCategory != null">
+                basic_category = #{basicCategory,jdbcType=VARCHAR},
+            </if>
+            <if test="basicAttribute != null">
+                basic_attribute = #{basicAttribute,jdbcType=VARCHAR},
+            </if>
+            <if test="basicIp != null">
+                basic_ip = #{basicIp,jdbcType=VARCHAR},
+            </if>
+            <if test="basicModel != null">
+                basic_model = #{basicModel,jdbcType=VARCHAR},
+            </if>
+            <if test="basicBrandname != null">
+                basic_brandname = #{basicBrandname,jdbcType=VARCHAR},
+            </if>
+            <if test="basicEnvironment != null">
+                basic_environment = #{basicEnvironment,jdbcType=VARCHAR},
+            </if>
+            <if test="basicNumber != null">
+                basic_number = #{basicNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="basicDate != null">
+                basic_date = #{basicDate,jdbcType=VARCHAR},
+            </if>
+            <if test="basicWay != null">
+                basic_way = #{basicWay,jdbcType=VARCHAR},
+            </if>
+            <if test="basicNum != null">
+                basic_num = #{basicNum,jdbcType=VARCHAR},
+            </if>
+            <if test="basicElectricity != null">
+                basic_electricity = #{basicElectricity,jdbcType=VARCHAR},
+            </if>
+            <if test="basicDatasource != null">
+                basic_datasource = #{basicDatasource,jdbcType=VARCHAR},
+            </if>
+            <if test="basicPrecision != null">
+                basic_precision = #{basicPrecision,jdbcType=VARCHAR},
+            </if>
+            <if test="basicLatitude != null">
+                basic_latitude = #{basicLatitude,jdbcType=VARCHAR},
+            </if>
+            <if test="basicLocation != null">
+                basic_location = #{basicLocation,jdbcType=VARCHAR},
+            </if>
+            <if test="basicUse != null">
+                basic_use = #{basicUse,jdbcType=VARCHAR},
+            </if>
+            <if test="basicNormal != null">
+                basic_normal = #{basicNormal,jdbcType=VARCHAR},
+            </if>
+            <if test="basicEnable != null">
+                basic_enable = #{basicEnable,jdbcType=VARCHAR},
+            </if>
+            <if test="sysDutyId != null">
+                sys_duty_id = #{sysDutyId,jdbcType=INTEGER},
+            </if>
+            <if test="basicAccount != null">
+                basic_account = #{basicAccount,jdbcType=VARCHAR},
+            </if>
+            <if test="basicPassword != null">
+                basic_password = #{basicPassword,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where sys_basic_id = #{sysBasicId,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.zygh.lz.admin.Basic">
+    update basic
+    set basic_category = #{basicCategory,jdbcType=VARCHAR},
+      basic_attribute = #{basicAttribute,jdbcType=VARCHAR},
+      basic_ip = #{basicIp,jdbcType=VARCHAR},
+      basic_model = #{basicModel,jdbcType=VARCHAR},
+      basic_brandname = #{basicBrandname,jdbcType=VARCHAR},
+      basic_environment = #{basicEnvironment,jdbcType=VARCHAR},
+      basic_number = #{basicNumber,jdbcType=VARCHAR},
+      basic_date = #{basicDate,jdbcType=VARCHAR},
+      basic_way = #{basicWay,jdbcType=VARCHAR},
+      basic_num = #{basicNum,jdbcType=VARCHAR},
+      basic_electricity = #{basicElectricity,jdbcType=VARCHAR},
+      basic_datasource = #{basicDatasource,jdbcType=VARCHAR},
+      basic_precision = #{basicPrecision,jdbcType=VARCHAR},
+      basic_latitude = #{basicLatitude,jdbcType=VARCHAR},
+      basic_location = #{basicLocation,jdbcType=VARCHAR},
+      basic_use = #{basicUse,jdbcType=VARCHAR},
+      basic_normal = #{basicNormal,jdbcType=VARCHAR},
+      basic_enable = #{basicEnable,jdbcType=VARCHAR},
+      sys_duty_id = #{sysDutyId,jdbcType=INTEGER},
+      basic_account = #{basicAccount,jdbcType=VARCHAR},
+      basic_password = #{basicPassword,jdbcType=VARCHAR}
+    where sys_basic_id = #{sysBasicId,jdbcType=INTEGER}
+  </update>
+    <select id="selectAll" resultMap="BaseResultMap">
+       SELECT basic_ip,basic_precision,basic_latitude,basic_account,basic_password,road_name,road_type,staff_name ,suty_road,section_name
+FROM basic AS b,
+road AS r,
+staff AS s,
+duty AS d,
+section AS se
+WHERE d.`sys_road_id`=r.`sys_road_id`
+AND b.`sys_duty_id`=d.`sys_duty_id`
+AND se.`sys_section_id`=s.`sys_section_id`
+AND d.`twostaff_id`=s.`sys_staff_id`
+    </select>
+</mapper>

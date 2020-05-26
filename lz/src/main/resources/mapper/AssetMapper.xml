@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zygh.lz.mapper.AssetMapper" >
+  <!--<cache type="com.zygh.lz.cache.MybatisRedisCache"/>-->
+  <resultMap id="BaseResultMap" type="com.zygh.lz.admin.Asset" >
+    <id column="sys_asset_id" property="sysAssetId" jdbcType="INTEGER" />
+    <result column="sys_section_id" property="sysSectionId" jdbcType="INTEGER" />
+    <result column="sys_staff_id" property="sysStaffId" jdbcType="INTEGER" />
+    <result column="asset_name" property="assetName" jdbcType="VARCHAR" />
+    <result column="asset_type" property="assetType" jdbcType="VARCHAR" />
+    <result column="asset_gpsx" property="assetGpsx" jdbcType="VARCHAR" />
+    <result column="asset_gpsy" property="assetGpsy" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    sys_asset_id, sys_section_id, sys_staff_id, asset_name, asset_type, asset_gpsx, asset_gpsy
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from asset
+    where sys_asset_id = #{sysAssetId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from asset
+    where sys_asset_id = #{sysAssetId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zygh.lz.admin.Asset" >
+    insert into asset (sys_asset_id, sys_section_id, sys_staff_id, 
+      asset_name, asset_type, asset_gpsx, 
+      asset_gpsy)
+    values (#{sysAssetId,jdbcType=INTEGER}, #{sysSectionId,jdbcType=INTEGER}, #{sysStaffId,jdbcType=INTEGER}, 
+      #{assetName,jdbcType=VARCHAR}, #{assetType,jdbcType=VARCHAR}, #{assetGpsx,jdbcType=VARCHAR}, 
+      #{assetGpsy,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zygh.lz.admin.Asset" >
+    insert into asset
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="sysAssetId != null" >
+        sys_asset_id,
+      </if>
+      <if test="sysSectionId != null" >
+        sys_section_id,
+      </if>
+      <if test="sysStaffId != null" >
+        sys_staff_id,
+      </if>
+      <if test="assetName != null" >
+        asset_name,
+      </if>
+      <if test="assetType != null" >
+        asset_type,
+      </if>
+      <if test="assetGpsx != null" >
+        asset_gpsx,
+      </if>
+      <if test="assetGpsy != null" >
+        asset_gpsy,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="sysAssetId != null" >
+        #{sysAssetId,jdbcType=INTEGER},
+      </if>
+      <if test="sysSectionId != null" >
+        #{sysSectionId,jdbcType=INTEGER},
+      </if>
+      <if test="sysStaffId != null" >
+        #{sysStaffId,jdbcType=INTEGER},
+      </if>
+      <if test="assetName != null" >
+        #{assetName,jdbcType=VARCHAR},
+      </if>
+      <if test="assetType != null" >
+        #{assetType,jdbcType=VARCHAR},
+      </if>
+      <if test="assetGpsx != null" >
+        #{assetGpsx,jdbcType=VARCHAR},
+      </if>
+      <if test="assetGpsy != null" >
+        #{assetGpsy,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zygh.lz.admin.Asset" >
+    update asset
+    <set >
+      <if test="sysSectionId != null" >
+        sys_section_id = #{sysSectionId,jdbcType=INTEGER},
+      </if>
+      <if test="sysStaffId != null" >
+        sys_staff_id = #{sysStaffId,jdbcType=INTEGER},
+      </if>
+      <if test="assetName != null" >
+        asset_name = #{assetName,jdbcType=VARCHAR},
+      </if>
+      <if test="assetType != null" >
+        asset_type = #{assetType,jdbcType=VARCHAR},
+      </if>
+      <if test="assetGpsx != null" >
+        asset_gpsx = #{assetGpsx,jdbcType=VARCHAR},
+      </if>
+      <if test="assetGpsy != null" >
+        asset_gpsy = #{assetGpsy,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where sys_asset_id = #{sysAssetId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zygh.lz.admin.Asset" >
+    update asset
+    set sys_section_id = #{sysSectionId,jdbcType=INTEGER},
+      sys_staff_id = #{sysStaffId,jdbcType=INTEGER},
+      asset_name = #{assetName,jdbcType=VARCHAR},
+      asset_type = #{assetType,jdbcType=VARCHAR},
+      asset_gpsx = #{assetGpsx,jdbcType=VARCHAR},
+      asset_gpsy = #{assetGpsy,jdbcType=VARCHAR}
+    where sys_asset_id = #{sysAssetId,jdbcType=INTEGER}
+  </update>
+  <select id="selectAssetBytype" resultType="map">
+    SELECT  * FROM asset a,section s WHERE a.sys_section_id=s.sys_section_id
+    <if test="assetName != null" >
+      AND a.asset_name LIKE  concat('%',#{assetName},'%')
+    </if>
+    <if test="type != null" >
+      AND a.asset_type LIKE  concat('%',#{type},'%')
+    </if>
+    <if test="dept != null" >
+      AND s.section_name LIKE  concat('%',#{dept},'%')
+    </if>
+  </select>
+  <!--查询所有资产类型-->
+  <select id="selectByTypeAsset" resultType="map">
+    SELECT DISTINCT asset_type FROM asset
+  </select>
+</mapper>

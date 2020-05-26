@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zygh.lz.mapper.ControlsystemMapper" >
+  <!--<cache type="com.zygh.lz.cache.MybatisRedisCache"/>-->
+  <resultMap id="BaseResultMap" type="com.zygh.lz.admin.Controlsystem" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="ip" property="ip" jdbcType="VARCHAR" />
+    <result column="systemName" property="systemname" jdbcType="VARCHAR" />
+    <result column="conment" property="conment" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, ip, systemName, conment
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from controlsystem
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from controlsystem
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zygh.lz.admin.Controlsystem" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into controlsystem (ip, systemName, conment
+      )
+    values (#{ip,jdbcType=VARCHAR}, #{systemname,jdbcType=VARCHAR}, #{conment,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zygh.lz.admin.Controlsystem" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into controlsystem
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="ip != null" >
+        ip,
+      </if>
+      <if test="systemname != null" >
+        systemName,
+      </if>
+      <if test="conment != null" >
+        conment,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="ip != null" >
+        #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="systemname != null" >
+        #{systemname,jdbcType=VARCHAR},
+      </if>
+      <if test="conment != null" >
+        #{conment,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zygh.lz.admin.Controlsystem" >
+    update controlsystem
+    <set >
+      <if test="ip != null" >
+        ip = #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="systemname != null" >
+        systemName = #{systemname,jdbcType=VARCHAR},
+      </if>
+      <if test="conment != null" >
+        conment = #{conment,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zygh.lz.admin.Controlsystem" >
+    update controlsystem
+    set ip = #{ip,jdbcType=VARCHAR},
+      systemName = #{systemname,jdbcType=VARCHAR},
+      conment = #{conment,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

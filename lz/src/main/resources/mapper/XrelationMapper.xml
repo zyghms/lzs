@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zygh.lz.mapper.XrelationMapper" >
+  <!--<cache type="com.zygh.lz.cache.MybatisRedisCache"/>-->
+  <resultMap id="BaseResultMap" type="com.zygh.lz.admin.Xrelation" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="staff_id" property="staffId" jdbcType="INTEGER" />
+    <result column="xarea_id" property="xareaId" jdbcType="INTEGER" />
+    <result column="conmnet" property="conmnet" jdbcType="VARCHAR" />
+    <result column="pcty" property="pcty" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, staff_id, xarea_id, conmnet, pcty
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from xrelation
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from xrelation
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zygh.lz.admin.Xrelation" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into xrelation (staff_id, xarea_id, conmnet, 
+      pcty)
+    values (#{staffId,jdbcType=INTEGER}, #{xareaId,jdbcType=INTEGER}, #{conmnet,jdbcType=VARCHAR}, 
+      #{pcty,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zygh.lz.admin.Xrelation" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into xrelation
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="staffId != null" >
+        staff_id,
+      </if>
+      <if test="xareaId != null" >
+        xarea_id,
+      </if>
+      <if test="conmnet != null" >
+        conmnet,
+      </if>
+      <if test="pcty != null" >
+        pcty,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="staffId != null" >
+        #{staffId,jdbcType=INTEGER},
+      </if>
+      <if test="xareaId != null" >
+        #{xareaId,jdbcType=INTEGER},
+      </if>
+      <if test="conmnet != null" >
+        #{conmnet,jdbcType=VARCHAR},
+      </if>
+      <if test="pcty != null" >
+        #{pcty,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zygh.lz.admin.Xrelation" >
+    update xrelation
+    <set >
+      <if test="staffId != null" >
+        staff_id = #{staffId,jdbcType=INTEGER},
+      </if>
+      <if test="xareaId != null" >
+        xarea_id = #{xareaId,jdbcType=INTEGER},
+      </if>
+      <if test="conmnet != null" >
+        conmnet = #{conmnet,jdbcType=VARCHAR},
+      </if>
+      <if test="pcty != null" >
+        pcty = #{pcty,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zygh.lz.admin.Xrelation" >
+    update xrelation
+    set staff_id = #{staffId,jdbcType=INTEGER},
+      xarea_id = #{xareaId,jdbcType=INTEGER},
+      conmnet = #{conmnet,jdbcType=VARCHAR},
+      pcty = #{pcty,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

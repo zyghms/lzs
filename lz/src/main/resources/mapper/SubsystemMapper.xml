@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zygh.lz.mapper.SubsystemMapper" >
+  <!--<cache type="com.zygh.lz.cache.MybatisRedisCache"/>-->
+  <resultMap id="BaseResultMap" type="com.zygh.lz.admin.Subsystem" >
+    <id column="sys_subsystem_id" property="sysSubsystemId" jdbcType="INTEGER" />
+    <result column="subsystem_name" property="subsystemName" jdbcType="VARCHAR" />
+    <result column="icon" property="icon" jdbcType="VARCHAR" />
+    <result column="sref" property="sref" jdbcType="VARCHAR" />
+    <result column="sys_project_id" property="sysProjectId" jdbcType="INTEGER" />
+    <result column="title" property="title" jdbcType="INTEGER" />
+    <result column="subsystem_sort" property="subsystemSort" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    sys_subsystem_id, subsystem_name, icon, sref, sys_project_id, title, subsystem_sort
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from subsystem
+    where sys_subsystem_id = #{sysSubsystemId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from subsystem
+    where sys_subsystem_id = #{sysSubsystemId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zygh.lz.admin.Subsystem" >
+    insert into subsystem (sys_subsystem_id, subsystem_name, icon, 
+      sref, sys_project_id, title, 
+      subsystem_sort)
+    values (#{sysSubsystemId,jdbcType=INTEGER}, #{subsystemName,jdbcType=VARCHAR}, #{icon,jdbcType=VARCHAR}, 
+      #{sref,jdbcType=VARCHAR}, #{sysProjectId,jdbcType=INTEGER}, #{title,jdbcType=INTEGER}, 
+      #{subsystemSort,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zygh.lz.admin.Subsystem" >
+    insert into subsystem
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="sysSubsystemId != null" >
+        sys_subsystem_id,
+      </if>
+      <if test="subsystemName != null" >
+        subsystem_name,
+      </if>
+      <if test="icon != null" >
+        icon,
+      </if>
+      <if test="sref != null" >
+        sref,
+      </if>
+      <if test="sysProjectId != null" >
+        sys_project_id,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="subsystemSort != null" >
+        subsystem_sort,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="sysSubsystemId != null" >
+        #{sysSubsystemId,jdbcType=INTEGER},
+      </if>
+      <if test="subsystemName != null" >
+        #{subsystemName,jdbcType=VARCHAR},
+      </if>
+      <if test="icon != null" >
+        #{icon,jdbcType=VARCHAR},
+      </if>
+      <if test="sref != null" >
+        #{sref,jdbcType=VARCHAR},
+      </if>
+      <if test="sysProjectId != null" >
+        #{sysProjectId,jdbcType=INTEGER},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=INTEGER},
+      </if>
+      <if test="subsystemSort != null" >
+        #{subsystemSort,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zygh.lz.admin.Subsystem" >
+    update subsystem
+    <set >
+      <if test="subsystemName != null" >
+        subsystem_name = #{subsystemName,jdbcType=VARCHAR},
+      </if>
+      <if test="icon != null" >
+        icon = #{icon,jdbcType=VARCHAR},
+      </if>
+      <if test="sref != null" >
+        sref = #{sref,jdbcType=VARCHAR},
+      </if>
+      <if test="sysProjectId != null" >
+        sys_project_id = #{sysProjectId,jdbcType=INTEGER},
+      </if>
+      <if test="title != null" >
+        title = #{title,jdbcType=INTEGER},
+      </if>
+      <if test="subsystemSort != null" >
+        subsystem_sort = #{subsystemSort,jdbcType=INTEGER},
+      </if>
+    </set>
+    where sys_subsystem_id = #{sysSubsystemId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zygh.lz.admin.Subsystem" >
+    update subsystem
+    set subsystem_name = #{subsystemName,jdbcType=VARCHAR},
+      icon = #{icon,jdbcType=VARCHAR},
+      sref = #{sref,jdbcType=VARCHAR},
+      sys_project_id = #{sysProjectId,jdbcType=INTEGER},
+      title = #{title,jdbcType=INTEGER},
+      subsystem_sort = #{subsystemSort,jdbcType=INTEGER}
+    where sys_subsystem_id = #{sysSubsystemId,jdbcType=INTEGER}
+  </update>
+  <select id="selectAllSubsystem" resultMap="BaseResultMap"  >
+    select
+    <include refid="Base_Column_List" />
+    from subsystem
+  </select>
+  <!--接口管理查找系统大类-->
+  <select id="selectControlsystem" resultType="map" >
+    SELECT * FROM controlsystem
+  </select>
+  <!--接口管理根据系统大类查找小类-->
+  <select id="selectControlsubsystem" resultType="map" >
+      SELECT * FROM controlsubsystem
+      WHERE systemid=#{id}
+  </select>
+  <!--查找接口事件困难程度-->
+  <select id="selectRank" resultType="map" >
+    SELECT * FROM rank
+  </select>
+  <!--查找接口相关人-->
+  <select id="selectRepair" resultType="map" >
+    SELECT * FROM repair
+  </select>
+</mapper>

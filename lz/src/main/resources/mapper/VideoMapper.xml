@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zygh.lz.mapper.VideoMapper">
+    <!--<cache type="com.zygh.lz.cache.MybatisRedisCache"/>-->
+    <resultMap id="BaseResultMap" type="com.zygh.lz.admin.Video">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="basicid" property="basicid" jdbcType="VARCHAR"/>
+        <result column="computerip" property="computerip" jdbcType="VARCHAR"/>
+        <result column="host" property="host" jdbcType="VARCHAR"/>
+        <result column="basicip" property="basicip" jdbcType="VARCHAR"/>
+        <result column="accout" property="accout" jdbcType="VARCHAR"/>
+        <result column="password" property="password" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, basicid, computerip, host, basicip, accout, password
+  </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from video
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from video
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+    <insert id="insert" parameterType="com.zygh.lz.admin.Video">
+        <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into video (basicid, computerip, host,
+        basicip, accout, password
+        )
+        values (#{basicid,jdbcType=VARCHAR}, #{computerip,jdbcType=VARCHAR}, #{host,jdbcType=VARCHAR},
+        #{basicip,jdbcType=VARCHAR}, #{accout,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}
+        )
+    </insert>
+    <insert id="insertSelective" parameterType="com.zygh.lz.admin.Video">
+        <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into video
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="basicid != null">
+                basicid,
+            </if>
+            <if test="computerip != null">
+                computerip,
+            </if>
+            <if test="host != null">
+                host,
+            </if>
+            <if test="basicip != null">
+                basicip,
+            </if>
+            <if test="accout != null">
+                accout,
+            </if>
+            <if test="password != null">
+                password,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="basicid != null">
+                #{basicid,jdbcType=VARCHAR},
+            </if>
+            <if test="computerip != null">
+                #{computerip,jdbcType=VARCHAR},
+            </if>
+            <if test="host != null">
+                #{host,jdbcType=VARCHAR},
+            </if>
+            <if test="basicip != null">
+                #{basicip,jdbcType=VARCHAR},
+            </if>
+            <if test="accout != null">
+                #{accout,jdbcType=VARCHAR},
+            </if>
+            <if test="password != null">
+                #{password,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.zygh.lz.admin.Video">
+        update video
+        <set>
+            <if test="basicid != null">
+                basicid = #{basicid,jdbcType=VARCHAR},
+            </if>
+            <if test="computerip != null">
+                computerip = #{computerip,jdbcType=VARCHAR},
+            </if>
+            <if test="host != null">
+                host = #{host,jdbcType=VARCHAR},
+            </if>
+            <if test="basicip != null">
+                basicip = #{basicip,jdbcType=VARCHAR},
+            </if>
+            <if test="accout != null">
+                accout = #{accout,jdbcType=VARCHAR},
+            </if>
+            <if test="password != null">
+                password = #{password,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.zygh.lz.admin.Video">
+    update video
+    set basicid = #{basicid,jdbcType=VARCHAR},
+      computerip = #{computerip,jdbcType=VARCHAR},
+      host = #{host,jdbcType=VARCHAR},
+      basicip = #{basicip,jdbcType=VARCHAR},
+      accout = #{accout,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+    <select id="selectAllVideo" resultType="map">
+    SELECT v.*,b.basic_precision,b.basic_latitude FROM video v,basic b WHERE v.basicid=b.sys_basic_id
+  </select>
+    <select id="selectAllVideode" resultMap="BaseResultMap">
+    SELECT * FROM video WHERE id=401
+  </select>
+</mapper>

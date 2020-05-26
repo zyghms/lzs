@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zygh.lz.mapper.LocationMapper">
+    <!--<cache type="com.zygh.lz.cache.MybatisRedisCache"/>-->
+    <resultMap id="BaseResultMap" type="com.zygh.lz.admin.Location">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="sys_staff_id" property="sysStaffId" jdbcType="INTEGER"/>
+        <result column="gps_x" property="gpsX" jdbcType="VARCHAR"/>
+        <result column="gps_y" property="gpsY" jdbcType="VARCHAR"/>
+        <result column="time" property="time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, sys_staff_id, gps_x, gps_y, time
+  </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from location
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from location
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+    <insert id="insert" parameterType="com.zygh.lz.admin.Location">
+        <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into location (sys_staff_id, gps_x, gps_y,
+        time)
+        values (#{sysStaffId,jdbcType=INTEGER}, #{gpsX,jdbcType=VARCHAR}, #{gpsY,jdbcType=VARCHAR},
+        #{time,jdbcType=TIMESTAMP})
+    </insert>
+    <insert id="insertSelective" parameterType="com.zygh.lz.admin.Location">
+        <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into location
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="sysStaffId != null">
+                sys_staff_id,
+            </if>
+            <if test="gpsX != null">
+                gps_x,
+            </if>
+            <if test="gpsY != null">
+                gps_y,
+            </if>
+            <if test="time != null">
+                time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="sysStaffId != null">
+                #{sysStaffId,jdbcType=INTEGER},
+            </if>
+            <if test="gpsX != null">
+                #{gpsX,jdbcType=VARCHAR},
+            </if>
+            <if test="gpsY != null">
+                #{gpsY,jdbcType=VARCHAR},
+            </if>
+            <if test="time != null">
+                #{time,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.zygh.lz.admin.Location">
+        update location
+        <set>
+            <if test="sysStaffId != null">
+                sys_staff_id = #{sysStaffId,jdbcType=INTEGER},
+            </if>
+            <if test="gpsX != null">
+                gps_x = #{gpsX,jdbcType=VARCHAR},
+            </if>
+            <if test="gpsY != null">
+                gps_y = #{gpsY,jdbcType=VARCHAR},
+            </if>
+            <if test="time != null">
+                time = #{time,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByStaffId" parameterType="com.zygh.lz.admin.Location">
+        update location
+        <set>
+            <if test="sysStaffId != null">
+                sys_staff_id = #{sysStaffId,jdbcType=INTEGER},
+            </if>
+            <if test="gpsX != null">
+                gps_x = #{gpsX,jdbcType=VARCHAR},
+            </if>
+            <if test="gpsY != null">
+                gps_y = #{gpsY,jdbcType=VARCHAR},
+            </if>
+            <if test="time != null">
+                time = #{time,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where sys_staff_id = #{sysStaffId}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.zygh.lz.admin.Location">
+    update location
+    set sys_staff_id = #{sysStaffId,jdbcType=INTEGER},
+      gps_x = #{gpsX,jdbcType=VARCHAR},
+      gps_y = #{gpsY,jdbcType=VARCHAR},
+      time = #{time,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+    <select id="selectLocationByStaffId" resultMap="BaseResultMap">
+      SELECT * FROM location WHERE sys_staff_id=#{staffId}
+  </select>
+    <!--查询当天所有人的GPS实时坐标-->
+    <select id="selectLocationByNowday" resultType="map">
+        select l.*,f.staff_name,f.staff_hierarchy,s.section_name from location l,staff f,section s
+        where l.sys_staff_id=f.sys_staff_id and f.sys_section_id=s.sys_section_id
+        and to_days(l.time) = to_days(now());
+    </select>
+</mapper>

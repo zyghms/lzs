@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zygh.lz.mapper.SectionMapper" >
+  <!--<cache type="com.zygh.lz.cache.MybatisRedisCache"/>-->
+  <resultMap id="BaseResultMap" type="com.zygh.lz.admin.Section" >
+    <id column="sys_section_id" property="sysSectionId" jdbcType="INTEGER" />
+    <result column="section_pid" property="sectionPid" jdbcType="INTEGER" />
+    <result column="section_name" property="sectionName" jdbcType="VARCHAR" />
+    <result column="section_position" property="sectionPosition" jdbcType="VARCHAR" />
+    <result column="section_tel" property="sectionTel" jdbcType="VARCHAR" />
+    <result column="section_person" property="sectionPerson" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    sys_section_id, section_pid, section_name, section_position, section_tel, section_person
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from section
+    where sys_section_id = #{sysSectionId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from section
+    where sys_section_id = #{sysSectionId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zygh.lz.admin.Section" >
+    insert into section (sys_section_id, section_pid, section_name, 
+      section_position, section_tel, section_person
+      )
+    values (#{sysSectionId,jdbcType=INTEGER}, #{sectionPid,jdbcType=INTEGER}, #{sectionName,jdbcType=VARCHAR}, 
+      #{sectionPosition,jdbcType=VARCHAR}, #{sectionTel,jdbcType=VARCHAR}, #{sectionPerson,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zygh.lz.admin.Section" >
+    insert into section
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="sysSectionId != null" >
+        sys_section_id,
+      </if>
+      <if test="sectionPid != null" >
+        section_pid,
+      </if>
+      <if test="sectionName != null" >
+        section_name,
+      </if>
+      <if test="sectionPosition != null" >
+        section_position,
+      </if>
+      <if test="sectionTel != null" >
+        section_tel,
+      </if>
+      <if test="sectionPerson != null" >
+        section_person,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="sysSectionId != null" >
+        #{sysSectionId,jdbcType=INTEGER},
+      </if>
+      <if test="sectionPid != null" >
+        #{sectionPid,jdbcType=INTEGER},
+      </if>
+      <if test="sectionName != null" >
+        #{sectionName,jdbcType=VARCHAR},
+      </if>
+      <if test="sectionPosition != null" >
+        #{sectionPosition,jdbcType=VARCHAR},
+      </if>
+      <if test="sectionTel != null" >
+        #{sectionTel,jdbcType=VARCHAR},
+      </if>
+      <if test="sectionPerson != null" >
+        #{sectionPerson,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zygh.lz.admin.Section" >
+    update section
+    <set >
+      <if test="sectionPid != null" >
+        section_pid = #{sectionPid,jdbcType=INTEGER},
+      </if>
+      <if test="sectionName != null" >
+        section_name = #{sectionName,jdbcType=VARCHAR},
+      </if>
+      <if test="sectionPosition != null" >
+        section_position = #{sectionPosition,jdbcType=VARCHAR},
+      </if>
+      <if test="sectionTel != null" >
+        section_tel = #{sectionTel,jdbcType=VARCHAR},
+      </if>
+      <if test="sectionPerson != null" >
+        section_person = #{sectionPerson,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where sys_section_id = #{sysSectionId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zygh.lz.admin.Section" >
+    update section
+    set section_pid = #{sectionPid,jdbcType=INTEGER},
+      section_name = #{sectionName,jdbcType=VARCHAR},
+      section_position = #{sectionPosition,jdbcType=VARCHAR},
+      section_tel = #{sectionTel,jdbcType=VARCHAR},
+      section_person = #{sectionPerson,jdbcType=VARCHAR}
+    where sys_section_id = #{sysSectionId,jdbcType=INTEGER}
+  </update>
+  <!--根据姓名，性别，职位，部门，领导模糊查询所有部门人员-->
+  <select id="selectAllBySection" resultType="map">
+    select *,r.role_name, (select staff_name from staff where staff.sys_staff_id = f.stafff_pid ) as leader
+    from section s,staff f,role r WHERE s.sys_section_id=f.sys_section_id and r.sys_role_id=f.sys_role_id
+    <if test="sex != null" >
+      AND f.staff_sex LIKE concat('%',#{sex},'%')
+    </if>
+    <if test="staffPost != null" >
+      AND f.staff_post LIKE concat('%',#{staffPost},'%')
+    </if>
+    <if test="staffName != null" >
+      AND f.staff_name LIKE concat('%',#{staffName},'%')
+    </if>
+    <if test="staffPid != null" >
+      AND f.stafff_pid = #{staffPid}
+    </if>
+    <if test="sectionName != null" >
+      AND s.section_name LIKE concat('%',#{sectionName},'%')
+    </if>
+  </select>
+
+  <select id="selectAllSection" resultMap="BaseResultMap">
+    select
+    sys_section_id,section_pid,section_name,section_position,section_tel,section_person
+    from section
+  </select>
+  <!--部门删除判断-->
+  <select id="selectByPid" resultType="int">
+    SELECT COUNT(*) from section WHERE section_pid = #{pid}
+  </select>
+  <!--部门人员信息查询那里的模糊查询-->
+  <select id="selectSectionByCt" resultType="map">
+    select * from section s,staff f WHERE s.sys_section_id=f.sys_section_id
+    <if test="sex != null" >
+      AND f.staff_sex LIKE concat('%',#{sex},'%')
+    </if>
+    <if test="staffHierarchy != null" >
+      AND f.staff_hierarchy LIKE concat('%',#{staffHierarchy},'%')
+    </if>
+    <if test="sectionName != null" >
+      AND s.section_name LIKE concat('%',#{sectionName},'%')
+    </if>
+  </select>
+  <!--通过部门id  查询部门人员-->
+  <select id="selectBySectionId" resultType="map">
+    SELECT * FROM section s,staff f WHERE s.sys_section_id=f.sys_section_id
+    and f.sys_section_id=#{SectionId}
+    <if test="staffHierarchy != null">
+      and f.staff_hierarchy=#{staffHierarchy}
+    </if>
+
+  </select>
+  <!--根据大队id查询大队下面的中队-->
+  <select id="selectDetachmentByid" resultType="map">
+    SELECT sys_section_id,section_name FROM section WHERE section_pid=#{id}
+  </select>
+</mapper>

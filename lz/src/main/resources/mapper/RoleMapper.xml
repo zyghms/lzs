@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zygh.lz.mapper.RoleMapper" >
+  <!--<cache type="com.zygh.lz.cache.MybatisRedisCache"/>-->
+  <resultMap id="BaseResultMap" type="com.zygh.lz.admin.Role" >
+    <id column="sys_role_id" property="sysRoleId" jdbcType="INTEGER" />
+    <result column="role_name" property="roleName" jdbcType="VARCHAR" />
+    <result column="role_details" property="roleDetails" jdbcType="VARCHAR" />
+    <result column="subSystem_useType" property="subsystemUsetype" jdbcType="VARCHAR" />
+    <result column="menu_useType" property="menuUsetype" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    sys_role_id, role_name, role_details, subSystem_useType, menu_useType
+  </sql>
+  <!--查询登录人角色-->
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from role
+    where sys_role_id = #{sysRoleId,jdbcType=INTEGER}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from role
+    where sys_role_id = #{sysRoleId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zygh.lz.admin.Role" >
+    insert into role (sys_role_id, role_name, role_details, 
+      subSystem_useType, menu_useType)
+    values (#{sysRoleId,jdbcType=INTEGER}, #{roleName,jdbcType=VARCHAR}, #{roleDetails,jdbcType=VARCHAR}, 
+      #{subsystemUsetype,jdbcType=VARCHAR}, #{menuUsetype,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zygh.lz.admin.Role" >
+    insert into role
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="sysRoleId != null" >
+        sys_role_id,
+      </if>
+      <if test="roleName != null" >
+        role_name,
+      </if>
+      <if test="roleDetails != null" >
+        role_details,
+      </if>
+      <if test="subsystemUsetype != null" >
+        subSystem_useType,
+      </if>
+      <if test="menuUsetype != null" >
+        menu_useType,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="sysRoleId != null" >
+        #{sysRoleId,jdbcType=INTEGER},
+      </if>
+      <if test="roleName != null" >
+        #{roleName,jdbcType=VARCHAR},
+      </if>
+      <if test="roleDetails != null" >
+        #{roleDetails,jdbcType=VARCHAR},
+      </if>
+      <if test="subsystemUsetype != null" >
+        #{subsystemUsetype,jdbcType=VARCHAR},
+      </if>
+      <if test="menuUsetype != null" >
+        #{menuUsetype,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zygh.lz.admin.Role" >
+    update role
+    <set >
+      <if test="roleName != null" >
+        role_name = #{roleName,jdbcType=VARCHAR},
+      </if>
+      <if test="roleDetails != null" >
+        role_details = #{roleDetails,jdbcType=VARCHAR},
+      </if>
+      <if test="subsystemUsetype != null" >
+        subSystem_useType = #{subsystemUsetype,jdbcType=VARCHAR},
+      </if>
+      <if test="menuUsetype != null" >
+        menu_useType = #{menuUsetype,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where sys_role_id = #{sysRoleId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zygh.lz.admin.Role" >
+    update role
+    set role_name = #{roleName,jdbcType=VARCHAR},
+      role_details = #{roleDetails,jdbcType=VARCHAR},
+      subSystem_useType = #{subsystemUsetype,jdbcType=VARCHAR},
+      menu_useType = #{menuUsetype,jdbcType=VARCHAR}
+    where sys_role_id = #{sysRoleId,jdbcType=INTEGER}
+  </update>
+  <select id="selectAllRole" resultMap="BaseResultMap">
+    select * from role
+  </select>
+</mapper>

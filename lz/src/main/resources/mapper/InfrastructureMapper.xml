@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zygh.lz.mapper.InfrastructureMapper" >
+  <!--<cache type="com.zygh.lz.cache.MybatisRedisCache"/>-->
+  <resultMap id="BaseResultMap" type="com.zygh.lz.admin.Infrastructure" >
+    <id column="sys_infrastructure_id" property="sysInfrastructureId" jdbcType="INTEGER" />
+    <result column="sys_road_id" property="sysRoadId" jdbcType="INTEGER" />
+    <result column="infrastructure_name" property="infrastructureName" jdbcType="VARCHAR" />
+    <result column="infrastructure_type" property="infrastructureType" jdbcType="VARCHAR" />
+    <result column="damage" property="damage" jdbcType="VARCHAR" />
+    <result column="capital" property="capital" jdbcType="VARCHAR" />
+    <result column="department" property="department" jdbcType="VARCHAR" />
+    <result column="locationDetails" property="locationdetails" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    sys_infrastructure_id, sys_road_id, infrastructure_name, infrastructure_type, damage, 
+    capital, department, locationDetails
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from infrastructure
+    where sys_infrastructure_id = #{sysInfrastructureId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from infrastructure
+    where sys_infrastructure_id = #{sysInfrastructureId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zygh.lz.admin.Infrastructure" >
+    insert into infrastructure (sys_infrastructure_id, sys_road_id, infrastructure_name, 
+      infrastructure_type, damage, capital, 
+      department, locationDetails)
+    values (#{sysInfrastructureId,jdbcType=INTEGER}, #{sysRoadId,jdbcType=INTEGER}, #{infrastructureName,jdbcType=VARCHAR}, 
+      #{infrastructureType,jdbcType=VARCHAR}, #{damage,jdbcType=VARCHAR}, #{capital,jdbcType=VARCHAR}, 
+      #{department,jdbcType=VARCHAR}, #{locationdetails,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zygh.lz.admin.Infrastructure" >
+    insert into infrastructure
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="sysInfrastructureId != null" >
+        sys_infrastructure_id,
+      </if>
+      <if test="sysRoadId != null" >
+        sys_road_id,
+      </if>
+      <if test="infrastructureName != null" >
+        infrastructure_name,
+      </if>
+      <if test="infrastructureType != null" >
+        infrastructure_type,
+      </if>
+      <if test="damage != null" >
+        damage,
+      </if>
+      <if test="capital != null" >
+        capital,
+      </if>
+      <if test="department != null" >
+        department,
+      </if>
+      <if test="locationdetails != null" >
+        locationDetails,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="sysInfrastructureId != null" >
+        #{sysInfrastructureId,jdbcType=INTEGER},
+      </if>
+      <if test="sysRoadId != null" >
+        #{sysRoadId,jdbcType=INTEGER},
+      </if>
+      <if test="infrastructureName != null" >
+        #{infrastructureName,jdbcType=VARCHAR},
+      </if>
+      <if test="infrastructureType != null" >
+        #{infrastructureType,jdbcType=VARCHAR},
+      </if>
+      <if test="damage != null" >
+        #{damage,jdbcType=VARCHAR},
+      </if>
+      <if test="capital != null" >
+        #{capital,jdbcType=VARCHAR},
+      </if>
+      <if test="department != null" >
+        #{department,jdbcType=VARCHAR},
+      </if>
+      <if test="locationdetails != null" >
+        #{locationdetails,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zygh.lz.admin.Infrastructure" >
+    update infrastructure
+    <set >
+      <if test="sysRoadId != null" >
+        sys_road_id = #{sysRoadId,jdbcType=INTEGER},
+      </if>
+      <if test="infrastructureName != null" >
+        infrastructure_name = #{infrastructureName,jdbcType=VARCHAR},
+      </if>
+      <if test="infrastructureType != null" >
+        infrastructure_type = #{infrastructureType,jdbcType=VARCHAR},
+      </if>
+      <if test="damage != null" >
+        damage = #{damage,jdbcType=VARCHAR},
+      </if>
+      <if test="capital != null" >
+        capital = #{capital,jdbcType=VARCHAR},
+      </if>
+      <if test="department != null" >
+        department = #{department,jdbcType=VARCHAR},
+      </if>
+      <if test="locationdetails != null" >
+        locationDetails = #{locationdetails,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where sys_infrastructure_id = #{sysInfrastructureId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zygh.lz.admin.Infrastructure" >
+    update infrastructure
+    set sys_road_id = #{sysRoadId,jdbcType=INTEGER},
+      infrastructure_name = #{infrastructureName,jdbcType=VARCHAR},
+      infrastructure_type = #{infrastructureType,jdbcType=VARCHAR},
+      damage = #{damage,jdbcType=VARCHAR},
+      capital = #{capital,jdbcType=VARCHAR},
+      department = #{department,jdbcType=VARCHAR},
+      locationDetails = #{locationdetails,jdbcType=VARCHAR}
+    where sys_infrastructure_id = #{sysInfrastructureId,jdbcType=INTEGER}
+  </update>
+  <select id="selectInfrastructureByInfo" resultType="map">
+    SELECT * FROM infrastructure i,road r WHERE i.sys_road_id=r.sys_road_id
+    <if test="type != null" >
+      AND infrastructure_type LIKE concat('%',#{type},'%')
+    </if>
+    <if test="roadName != null" >
+      AND road_name LIKE concat('%',#{roadName},'%')
+    </if>
+
+
+  </select>
+</mapper>
